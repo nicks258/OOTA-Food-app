@@ -17,7 +17,7 @@
 		        </ion-col>
 		        <ion-col col-7>
 		            <br>
-		            <p class="fontsz">Beef pho noodles</p>
+		            <p class="fontsz">{{name}}</p>
 		            <p class="fontsz">
 		            	<ion-row>
 			            	<ion-col col-6 class="amt">
@@ -58,7 +58,9 @@
            <img src="assets/icon/map-icon.svg" class="direction dirct0"> <span>0.3 mi</span>
            <img src="assets/icon/direction-drive.svg" class="direction dirct1"> 4 min
            <img src="assets/icon/direction-drive.svg" class="direction dirct2"> 8 min
-           <span class="enddiv">Direction ></span>
+           <span class="enddiv">
+                  <a href="{{dirurl}}"> Direction <ion-icon name="compass"></ion-icon></a>
+            </span>
            <hr>
             <ion-list>
 		        <ion-item padding *ngFor="let d of data" (click)="goto_detailmodal(d.value)" [ngStyle]="{'background-color': d.bgcolor, 'margin-bottom': '2px'}">

@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,LoadingController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
-
+import { GooglePlus } from '@ionic-native/google-plus';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
   FB_APP_ID: number = 125195224754920;
-  constructor(public navCtrl: NavController,public fb: Facebook, public nativeStorage: NativeStorage, public navParams: NavParams ) {
+  constructor(public navCtrl: NavController,public fb: Facebook,public loadingCtrl: LoadingController, public nativeStorage: NativeStorage, public navParams: NavParams,
+              public googlePlus: GooglePlus ) {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
@@ -55,6 +56,35 @@ export class LoginPage {
         console.log(error);
       });
 
+  }
+  doGoogleLogin(){
+    let env = this;
+    let nav = this.navCtrl;
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+    this.googlePlus.login({
+      'scopes': '', // optional, space-separated list of scopes, If not included or empty, defaults to `profile` and `email`.
+      'webClientId': '631829299141-41vpoka0fv6h30qfjpbo940nfaspmckt.apps.googleusercontent.com', // optional clientId of your Web application from Credentials settings of your project - On Android, this MUST be included to get an idToken. On iOS, it is not required.
+      'offline': true
+    })
+      .then(function (user) {
+        loading.dismiss();
+
+        env.nativeStorage.setItem('user', {
+          name: user.displayName,
+          email: user.email,
+          picture: user.imageUrl
+        })
+          .then(function(){
+            nav.push(HomePage);
+          }, function (error) {
+            console.log(error);
+          })
+      }, function (error) {
+        loading.dismiss();
+      });
   }
 
 }

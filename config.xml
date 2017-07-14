@@ -84,6 +84,9 @@
         <variable name="APP_ID" value="236897090140690" />
         <variable name="APP_NAME" value="OOTA" />
     </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
+        <variable name="REVERSED_CLIENT_ID" value="631829299141-41vpoka0fv6h30qfjpbo940nfaspmckt.apps.googleusercontent.com" />
+    </plugin>
     <plugin name="cordova-plugin-http" spec="^1.2.0" />
     <plugin name="cordova-plugin-nativestorage" spec="2.2.2" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />

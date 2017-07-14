@@ -10,7 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { SearchPage } from '../pages/search/search';
 import { DetailviewPage } from '../pages/detailview/detailview';
 import { DetailmodalPage } from '../pages/detailmodal/detailmodal';
-
+import { GooglePlus } from '@ionic-native/google-plus';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -38,6 +38,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     DetailmodalPage
   ],
   providers: [
+    GooglePlus,
     StatusBar,
     SplashScreen,
     Facebook,

@@ -7,7 +7,7 @@
       <ion-title><p class="text-color">search</p></ion-title>
     </ion-toolbar>
     <ion-toolbar class="searchbox">
-       <ion-searchbar [(ngModel)]='searchQuery' (ionChange)='fetchsearch()'></ion-searchbar>
+       <ion-searchbar [(ngModel)]='searchQuery' (ionChange)='fetchsearch()' (ionCancel)="resetsearch()">></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
@@ -16,8 +16,8 @@
 
 <ion-card *ngIf="flag != 1">
   <ion-list>
-    <button ion-item *ngFor="let item of items">
-      {{item.item.name}}
+    <button ion-item *ngFor="let item of items" (click)='goto_item(item)'>
+      <div> {{item.item.name}} </div>
     </button>
      <hr style="color:black">
   
