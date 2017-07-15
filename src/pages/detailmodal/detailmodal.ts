@@ -8,10 +8,17 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class DetailmodalPage {
   data: Array<{value: number}> = [];
+  details : any;
+  detaildata : any;
+  rating : any;
+  mealdetails : any;
   public value;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
      this.value = navParams.get("value");
-     console.log("ok");
+     this.details = navParams.get("details");
+     this.rating = this.details.restaurant.rating;
+     this.mealdetails = this.details;
+     console.log(this.rating);
      console.log(this.value);
      this.data.push({
           value: this.value

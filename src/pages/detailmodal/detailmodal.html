@@ -34,10 +34,12 @@
       
       <div class="review" *ngFor="let d of data" padding>
         <div class="review" *ngIf="d.value == 1" class="text-color">
-               Meal Details
+               Meal Details <br>
+               Category : {{mealdetails.item.category}} <br>
+               sub-category : {{mealdetails.item.sub_category}} <br>
            </div>
            <div class="review" *ngIf="d.value == 2" class="text-color">
-               Review
+               Review : {{rating}}
            </div>
            <div class="review" *ngIf="d.value == 3" class="text-color">
                Restaurant and menu

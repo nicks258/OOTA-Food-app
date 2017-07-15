@@ -19,14 +19,17 @@ export class DetailviewPage {
         dirurl : any;
         lat : any;
         long : any;
+        rname : any;
   data: Array<{title: string, details: string, icon: string, bgcolor: string, showDetails: boolean, value: number}> = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
       this.presentLoading();
       
 
       this.sdata = navParams.get('data_search');
+      console.log(this.sdata);
       this.sdata = JSON.parse(this.sdata);
-      this.name = this.sdata.restaurant.name;
+      this.name = this.sdata.item.name;
+      this.rname = this.sdata.restaurant.name;
       this.cost = this.sdata.item.cost;
       this.lat = this.sdata.lat_long[0];
       this.long = this.sdata.lat_long[1];
@@ -66,7 +69,8 @@ export class DetailviewPage {
   goto_detailmodal(value){
       console.log(value);
       this.navCtrl.push(DetailmodalPage, {
-       value: value
+       value: value,
+       details : this.sdata
     });
   }
 
