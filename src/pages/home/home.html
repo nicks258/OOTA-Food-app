@@ -3,7 +3,7 @@
     <button ion-button menuToggle class="text-color">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title><p class="text-color">Restaurants</p></ion-title>
+    <ion-title><p class="text-color">Home</p></ion-title>
     <ion-buttons end class="cart-space">
       <button ion-button icon-only>
         <img src="assets/icon/cart.svg">
@@ -59,7 +59,8 @@
            <img src="assets/icon/direction-drive.svg" class="direction dirct1"> 4 min
            <img src="assets/icon/direction-drive.svg" class="direction dirct2"> 8 min
            <span class="enddiv"> 
-                <a href="http://maps.google.com/maps?saddr=50,10&daddr=50,20">Direction <ion-icon name="compass"></ion-icon></a>
+                <p class="directionmap" (click)="direct(dashboard.restaurant.latitude,dashboard.restaurant.longitude)">Direction <ion-icon name="compass"></ion-icon>
+                </p>
           </span>
            <hr>
             <ion-list>
@@ -76,5 +77,11 @@
 <!--card ends--> 
 </div>
 
-     <img src="assets/icon/send.svg" class="send send-img" *ngIf="nextlength >= 3">
+     <img src="assets/icon/send.svg" class="send send-img" *ngIf="nextlength >= 3" (click)="loadmore()">
 </ion-content>
+
+<script>
+   function direct(){
+     console.log("ok");
+   }
+</script>

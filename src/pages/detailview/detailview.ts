@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { DetailmodalPage } from '../detailmodal/detailmodal';
-
+import { Geolocation } from '@ionic-native/geolocation';
 @IonicPage()
 @Component({
   selector: 'page-detailview',
@@ -20,11 +20,11 @@ export class DetailviewPage {
         lat : any;
         long : any;
         rname : any;
+        mylatitude : any;
+        mylongitude : any;
   data: Array<{title: string, details: string, icon: string, bgcolor: string, showDetails: boolean, value: number}> = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation) {
       this.presentLoading();
-      
-
       this.sdata = navParams.get('data_search');
       console.log(this.sdata);
       this.sdata = JSON.parse(this.sdata);
@@ -33,7 +33,9 @@ export class DetailviewPage {
       this.cost = this.sdata.item.cost;
       this.lat = this.sdata.lat_long[0];
       this.long = this.sdata.lat_long[1];
-      this.dirurl = "http://maps.google.com/maps?saddr=50,10&daddr="+this.lat+","+this.long;
+      this.mylatitude = navParams.get('latitude');
+      this.mylongitude = navParams.get('longitude');
+      this.dirurl = "http://maps.google.com/maps?saddr="+this.mylatitude+","+this.mylongitude+"&daddr="+this.lat+","+this.long;
 
       this.data.push({
           title: 'Meal details and info',

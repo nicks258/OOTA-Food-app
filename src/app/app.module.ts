@@ -13,6 +13,8 @@ import { DetailmodalPage } from '../pages/detailmodal/detailmodal';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Geolocation } from '@ionic-native/geolocation';
+
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     GooglePlus,
     StatusBar,
     SplashScreen,
+    Geolocation,
     Facebook,
     NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
