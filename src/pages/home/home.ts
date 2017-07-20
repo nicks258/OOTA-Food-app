@@ -80,8 +80,8 @@ export class HomePage {
       loadingPopup.present();
 
 
-      // this.http.get('http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end)
-        this.http.get('http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat= 37.40879&lng=-121.98857&pn='+start+'&ps='+end)
+      this.http.get('http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end)
+        // this.http.get('http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat= 37.40879&lng=-121.98857&pn='+start+'&ps='+end)
         .map(res => res.json())
         .subscribe(
           data => {
