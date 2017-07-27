@@ -1,9 +1,3 @@
-<!--
-  Generated template for the DetailmodalPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -30,7 +24,7 @@
 </ion-header>
 
 
-<ion-content style="background-color:#FEFA96;color:black;" padding>
+<ion-content style="background-color:#FEFDD8;color:grey;" padding>
 
       <div class="review" *ngFor="let d of data">
 
@@ -40,7 +34,7 @@
           </p>
                <ion-row>
                   <ion-col col-6 style="border-right: solid 1px black">
-                       Health
+                       <b>Health Benefits</b>
                        <p>One</p>
                        <p>One</p>
                        <p>One</p>
@@ -49,7 +43,7 @@
                        <p>One</p>
                    </ion-col>
                   <ion-col col-6>
-                       Nutrition
+                       <div style="margin-left:5px"><b>Nutrition</b></div>
                         <ion-row padding>
                            <ion-col col-6>
                            one
@@ -90,7 +84,7 @@
                   </ion-col>
                </ion-row>
           <br>
-           Inggreyients
+           <b>Ingredients</b>
            <p>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
           </p>
@@ -281,11 +275,15 @@
            <div class="review" *ngIf="d.value == 3" class="text-color">
                Restaurant and menu
            </div>
-           <div class="review" *ngIf="d.value == 4" class="text-color">
+           <div class="review" *ngIf="d.value == 4">
                <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+                We have picked this item for you because of your curret preference settingd.
                </p>
-               <button ion-button full>preference</button>
+               <br>
+               <p>
+                Help us serve you better by updating your preference.
+               </p>
+               <button ion-button full (click)="goto_preference()">Go To My Preference</button>
            </div>
       </div>
 </ion-content>

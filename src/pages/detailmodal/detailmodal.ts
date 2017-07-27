@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-
+import { PreferencePage } from '../preference/preference';
 @IonicPage()
 @Component({
   selector: 'page-detailmodal',
@@ -28,6 +28,9 @@ export class DetailmodalPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailmodalPage');
   }
-
+  
+  goto_preference(){
+     this.navCtrl.push(PreferencePage);
+  }
 
 }

@@ -1,0 +1,77 @@
+<!--
+  Generated template for the PreferencePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>Filter By</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+ 
+ <ion-header>
+  <ion-navbar>
+    <ion-title><p class="text-color">Filter By</p></ion-title>
+    <ion-buttons end>
+      <button ion-button class="text-color"> apply </button>
+    </ion-buttons>
+     <ion-buttons end>
+      <button ion-button class="text-color"> Clear </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content>
+ <!-- <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+      {{ item }}
+    </button>
+  </ion-list> -->
+  <div style="width:32%;border-right:solid 1px grey;height:100%;position: fixed;padding-top:10px">
+      <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="selected(item)" attr.id="{{item}}" class="sidecat" style="border-right:solid 1px grey">
+      {{ item }}
+    </button>
+  </ion-list>
+  </div>
+
+
+
+  <div style="margin-left:33%;padding-top: 10px">
+      <ion-list no-lines>
+
+      <ion-item>
+        <ion-label>Pepperoni1</ion-label>
+        <ion-checkbox [(ngModel)]="pepperoni1"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Pepperoni2</ion-label>
+        <ion-checkbox [(ngModel)]="pepperoni2"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Pepperoni3</ion-label>
+        <ion-checkbox [(ngModel)]="pepperoni3"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Pepperoni4</ion-label>
+        <ion-checkbox [(ngModel)]="pepperoni4"></ion-checkbox>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Pepperoni5</ion-label>
+        <ion-checkbox [(ngModel)]="pepperoni5"></ion-checkbox>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+
+</ion-content>

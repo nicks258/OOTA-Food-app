@@ -6,6 +6,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../pages/home/home';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LoginPage } from '../pages/login/login';
+import { CartPage } from '../pages/cart/cart';
 // import {GooglePlus} from "ionic-native/dist/es5";
 
 @Component({
@@ -23,6 +24,11 @@ export class MyApp {
     let env = this;
     platform.ready().then(() => {
 
+    // used for an example of ngFor and navigation
+    this.pages = [
+      { title: 'Home', component: HomePage },
+      { title: 'Cart', component: CartPage }
+    ];
 
       env.nav.push(HomePage);
       env.splashScreen.hide();

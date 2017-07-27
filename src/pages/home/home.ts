@@ -77,7 +77,7 @@ export class HomePage {
         content: 'Loading Restaurants...',
         spinner: 'circles'
       });
-      loadingPopup.present();
+      // loadingPopup.present();
 
 
       this.http.get('http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end)
@@ -85,12 +85,12 @@ export class HomePage {
         .map(res => res.json())
         .subscribe(
           data => {
-            setTimeout(() => {
+            // setTimeout(() => {
               console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
               this.dashboardlist = data.data;
               this.nextlength = data.data.length;
               console.log(this.nextlength);
-            }, 4000);
+            // }, 4000);
           },
           err => console.error(err)
       );

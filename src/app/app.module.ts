@@ -10,10 +10,13 @@ import { LoginPage } from '../pages/login/login';
 import { SearchPage } from '../pages/search/search';
 import { DetailviewPage } from '../pages/detailview/detailview';
 import { DetailmodalPage } from '../pages/detailmodal/detailmodal';
-import { GooglePlus } from '@ionic-native/google-plus';
+import { PreferencePage } from '../pages/preference/preference';
+import { CartPage } from '../pages/cart/cart';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Geolocation } from '@ionic-native/geolocation';
+import {GooglePlus} from "@ionic-native/google-plus";
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     HomePage,
     SearchPage,
     DetailviewPage,
-    DetailmodalPage
+    DetailmodalPage,
+    PreferencePage,
+    CartPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     HomePage,
     SearchPage,
     DetailviewPage,
-    DetailmodalPage
+    DetailmodalPage,
+    PreferencePage,
+    CartPage
   ],
   providers: [
     GooglePlus,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, Platform} from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { DetailmodalPage } from '../detailmodal/detailmodal';
@@ -23,8 +23,7 @@ export class DetailviewPage {
         mylatitude : any;
         mylongitude : any;
   data: Array<{title: string, details: string, icon: string, bgcolor: string, showDetails: boolean, value: number}> = [];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation) {
-      this.presentLoading();
+  constructor(public navCtrl: NavController, public platform: Platform, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation) {
       this.sdata = navParams.get('data_search');
       console.log(this.sdata);
       this.sdata = JSON.parse(this.sdata);
@@ -79,15 +78,33 @@ export class DetailviewPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DetailviewPage');
   }
-  
-  presentLoading() {
-    let loader = this.loadingCtrl.create({
-      content: 'Loading detailed info...',
-      spinner: 'circles',
-      duration: 2000
+
+
+presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Share',
+      cssClass: 'action-sheets-basic-page',
+      buttons: [
+        {
+          text: 'Whatsapp',
+          icon: !this.platform.is('ios') ? 'logo-whatsapp' : null,
+          handler: () => {
+            console.log('Whatsapp clicked');
+          }
+        },
+        {
+          text: 'Facebook',
+          icon: !this.platform.is('ios') ? 'logo-facebook' : null,
+          handler: () => {
+            console.log('Facebook clicked');
+          }
+        }
+      ]
     });
-    loader.present();
+    actionSheet.present();
   }
+
+
 
 
 }
