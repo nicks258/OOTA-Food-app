@@ -15,9 +15,9 @@ export class LoginPage {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad LoginPage');
+  // }
 
   goto_homepage(){
 
@@ -80,10 +80,12 @@ export class LoginPage {
           .then(function(){
             nav.push(HomePage);
           }, function (error) {
+            nav.push(HomePage);
             console.log(error);
           })
       }, function (error) {
         loading.dismiss();
+        nav.push(HomePage);
       });
   }
 

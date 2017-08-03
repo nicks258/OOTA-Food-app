@@ -12,6 +12,7 @@ import { DetailviewPage } from '../pages/detailview/detailview';
 import { DetailmodalPage } from '../pages/detailmodal/detailmodal';
 import { PreferencePage } from '../pages/preference/preference';
 import { CartPage } from '../pages/cart/cart';
+import { LogoutPage } from '../pages/logout/logout';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -28,6 +29,7 @@ import {GooglePlus} from "@ionic-native/google-plus";
     DetailviewPage,
     DetailmodalPage,
     PreferencePage,
+    LogoutPage,
     CartPage
   ],
   imports: [
@@ -44,6 +46,7 @@ import {GooglePlus} from "@ionic-native/google-plus";
     DetailviewPage,
     DetailmodalPage,
     PreferencePage,
+    LogoutPage,
     CartPage
   ],
   providers: [

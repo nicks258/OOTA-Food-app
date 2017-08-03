@@ -1,76 +1,160 @@
-<!--
-  Generated template for the PreferencePage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<!-- <ion-header>
-
-  <ion-navbar>
-    <ion-title>Filter By</ion-title>
-  </ion-navbar>
-
-</ion-header> -->
- 
- <ion-header>
-  <ion-navbar>
-    <ion-title><p class="text-color">Filter By</p></ion-title>
-    <ion-buttons end>
+<ion-header>
+  <ion-toolbar>
+      <button ion-button menuToggle class="text-color">
+      <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title><p class="text-color">Preference</p></ion-title>
+      <ion-buttons end>
       <button ion-button class="text-color"> apply </button>
     </ion-buttons>
      <ion-buttons end>
       <button ion-button class="text-color"> Clear </button>
     </ion-buttons>
-  </ion-navbar>
+    </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content>
- <!-- <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
-      {{ item }}
-    </button>
-  </ion-list> -->
-  <div style="width:32%;border-right:solid 1px grey;height:100%;position: fixed;padding-top:10px">
-      <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="selected(item)" attr.id="{{item}}" class="sidecat" style="border-right:solid 1px grey">
+
+
+  <div style="width:32%;border-right:solid 1px grey;height:100%;position: fixed;">
+    <ion-list>
+    <button ion-item *ngFor="let item of objectKeys(items)" (click)="selected(item)" attr.id="{{item}}" class="sidecat" style="border-right:solid 1px grey">
       {{ item }}
     </button>
   </ion-list>
   </div>
 
 
-
   <div style="margin-left:33%;padding-top: 10px">
-      <ion-list no-lines>
+      <ion-list no-lines *ngIf="option_val == 1">
+        <div>Breakfast</div> <hr>
+        <ion-item *ngFor="let breakfast of items.budget.breakfast">
+          <ion-label>{{breakfast}}</ion-label>
+          <ion-checkbox attr.id="{{breakfast}}" (ionChange)="clickedItem('items.budget.breakfast-'+breakfast,$event)"></ion-checkbox>
+        </ion-item>
+        <br>
+        <div>Lunch</div><hr>
+        <ion-item *ngFor="let lunch of items.budget.lunch">
+          <ion-label>{{lunch}}</ion-label>
+          <ion-checkbox attr.id="{{lunch}}" (ionChange)="clickedItem('items.budget.lunch-'+lunch,$event)"></ion-checkbox>
+        </ion-item>
+        <div>Dinner</div><hr>
+        <ion-item *ngFor="let dinner of items.budget.dinner">
+          <ion-label>{{dinner}}</ion-label>
+          <ion-checkbox attr.id="{{dinner}}" (ionChange)="clickedItem('items.budget.dinner-'+dinner,$event)"></ion-checkbox>
+        </ion-item>
+        <br>
+      </ion-list>
+      
 
-      <ion-item>
-        <ion-label>Pepperoni1</ion-label>
-        <ion-checkbox [(ngModel)]="pepperoni1"></ion-checkbox>
-      </ion-item>
 
-      <ion-item>
-        <ion-label>Pepperoni2</ion-label>
-        <ion-checkbox [(ngModel)]="pepperoni2"></ion-checkbox>
-      </ion-item>
 
-      <ion-item>
-        <ion-label>Pepperoni3</ion-label>
-        <ion-checkbox [(ngModel)]="pepperoni3"></ion-checkbox>
-      </ion-item>
+      <ion-list no-lines *ngIf="option_val == 2">
+        <!-- <div>{{current_option}}</div> -->
+        <ion-item *ngFor="let option of items.distance">
+          <ion-label>{{option}}</ion-label>
+          <ion-checkbox attr.id="{{option}}" (ionChange)="clickedItem('items.distance-'+option,$event)"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+      
 
-      <ion-item>
-        <ion-label>Pepperoni4</ion-label>
-        <ion-checkbox [(ngModel)]="pepperoni4"></ion-checkbox>
-      </ion-item>
 
-      <ion-item>
-        <ion-label>Pepperoni5</ion-label>
-        <ion-checkbox [(ngModel)]="pepperoni5"></ion-checkbox>
-      </ion-item>
 
-    </ion-list>
+
+
+      <ion-list no-lines *ngIf="option_val == 3">
+        <!-- <div>{{current_option}}</div> -->
+        <div>Breakfast</div> <hr>
+        <ion-item *ngFor="let breakfast of items.calorie.breakfast;">
+          <ion-label>{{breakfast}}</ion-label>
+          <ion-checkbox attr.id="{{breakfast}}" (ionChange)="clickedItem('items.calorie.breakfast-'+breakfast,$event)"></ion-checkbox>
+        </ion-item>
+        <br>
+        <div>Lunch</div><hr>
+        <ion-item *ngFor="let lunch of items.calorie.lunch;">
+          <ion-label>{{lunch}}</ion-label>
+          <ion-checkbox attr.id="{{lunch}}" (ionChange)="clickedItem('items.calorie.lunch-'+lunch,$event)"></ion-checkbox>
+        </ion-item>
+        <div>Dinner</div><hr>
+        <ion-item *ngFor="let dinner of items.calorie.dinner;">
+          <ion-label>{{dinner}}</ion-label>
+          <ion-checkbox attr.id="{{dinner}}" (ionChange)="clickedItem('items.calorie.dinner-'+dinner,$event)"></ion-checkbox>
+        </ion-item>
+        <br>
+      </ion-list>
+
+      
+
+
+
+      <ion-list no-lines *ngIf="option_val == 4">
+        <!-- <div>{{current_option}}</div> -->
+        <ion-item>
+          <ion-label>{{items.calorie_bld}}</ion-label>
+          <ion-checkbox attr.id="{{items.calorie_bld}}" (ionChange)="clickedItem('items.calorie_bld-'+items.calorie_bld,$event)"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+
+
+
+
+      <ion-list no-lines *ngIf="option_val == 5">
+        <!-- <div>{{current_option}}</div> -->
+        <div>Breakfast</div> <hr>
+        <ion-item *ngFor="let breakfast of items.meal_time.breakfast;">
+          <ion-label>{{breakfast}}</ion-label>
+          <ion-checkbox attr.id="{{breakfast}}" (ionChange)="clickedItem('items.meal_time.breakfast-'+breakfast,$event)"></ion-checkbox>
+        </ion-item>
+        <br>
+        <div>Lunch</div><hr>
+        <ion-item *ngFor="let lunch of items.meal_time.lunch;">
+          <ion-label>{{lunch}}</ion-label>
+          <ion-checkbox attr.id="{{lunch}}" (ionChange)="clickedItem('items.meal_time.lunch-'+lunch,$event)"></ion-checkbox>
+        </ion-item>
+        <div>Dinner</div><hr>
+        <ion-item *ngFor="let dinner of items.meal_time.dinner;">
+          <ion-label>{{dinner}}</ion-label>
+          <ion-checkbox attr.id="{{dinner}}" (ionChange)="clickedItem('items.meal_time.dinner-'+dinner,$event)"></ion-checkbox>
+        </ion-item>
+        <br>
+      </ion-list>
+
+
+
+
+      <ion-list no-lines *ngIf="option_val == 6">
+        <!-- <div>{{current_option}}</div> -->
+        <ion-item *ngFor="let cuisine of items.cuisine;">
+          <ion-label>{{cuisine}}</ion-label>
+          <ion-checkbox attr.id="{{cuisine}}" (ionChange)="clickedItem('items.cuisine-'+cuisine,$event)"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+
+
+
+
+      <ion-list no-lines *ngIf="option_val == 7">
+        <!-- <div>{{current_option}}</div> -->
+        <ion-item *ngFor="let food_type of items.food_type;">
+          <ion-label>{{food_type}}</ion-label>
+          <ion-checkbox attr.id="{{food_type}}" (ionChange)="clickedItem('items.food_type-'+food_type,$event)"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+
+
+
+
+      <ion-list no-lines *ngIf="option_val == 8">
+        <!-- <div>{{current_option}}</div> -->
+        <ion-item *ngFor="let fast_food of items.fast_food;">
+          <ion-label>{{fast_food}}</ion-label>
+          <ion-checkbox attr.id="{{fast_food}}" (ionChange)="clickedItem('items.fast_food-'+fast_food,$event)"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+
+
+
   </div>
 
 
