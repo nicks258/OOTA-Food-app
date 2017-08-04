@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { Http } from '@angular/http';
 
-/**
- * Generated class for the PreferencePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-preference',
@@ -108,20 +103,22 @@ export class PreferencePage {
   ]
 };
 
+
+  applyjson : any;
   option_data : any;
+  elem : any;
   selectedItems=new Array();
   checkedItems:boolean[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController) {
-      
-      console.log(this.items);
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public http: Http) {
+
       let opt = "budget";
-     this.current_option = opt;
-     this.current_inneropt = "items."+opt;
-     this.option_val = 1;
+      this.current_option = opt;
+      this.current_inneropt = "items."+opt;
+      this.option_val = 1;
 
   }
-  
+
 
 
   ionViewDidLoad() {
@@ -157,29 +154,49 @@ export class PreferencePage {
       else{
         this.option_val = 8;
       }
-     console.log(option);
      let x = <HTMLScriptElement[]><any>document.getElementsByClassName("sidecat");
      let i;
      for (i = 0; i < x.length; i++) {
          x[i].style.color = "black";
          x[i].style.backgroundColor="white";
       }
+
+
      document.getElementById(option).style.color = "white";
      document.getElementById(option).style.backgroundColor = "#6666ff";
+
+
   }
-  
+
+  check_saved(a,b){
+     let option = a+b;
+         let j, flag;
+         for(j=0;j< this.selectedItems.length; j++){
+
+            if (this.selectedItems[j] == option){
+                flag = 1;
+                break;
+              }
+            else{
+                flag = 0;
+              }
+       }
+
+       if (flag == 1)
+         return true;
+       else
+         return false;
+  }
+
+
+
   clickedItem(val,event){
-    console.log(event.checked);
-    console.log(val);
     if(event.checked == true){
       this.selectedItems.push(val);
-      console.log(this.selectedItems);
     }
     else{
       let pos = this.selectedItems.indexOf(val);
-      console.log(pos);
       this.selectedItems.splice(pos, 1);
-      console.log(this.selectedItems);
     }
     this.presentAlert(this.selectedItems);
  }
@@ -193,4 +210,77 @@ export class PreferencePage {
     alert.present();
 }
 
+  applypreference(){
+     this.applyjson =  {
+  "budget": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "distance": [],
+  "calorie": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "calorie_bld": 0,
+  "meal_time": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "cuisine": [],
+  "food_type": [],
+  "fast_food": []
+};
+     let j, k, initial_id, choosen_id;
+     for(j=0;j< this.selectedItems.length; j++){
+        let postpref='this.applyjson', check_presence=0;
+
+        if (this.selectedItems[j].split("-")[0] == "items.calorie_bld")
+        {
+           this.applyjson.calorie_bld = this.selectedItems[j].split("-")[1];
+        }
+        else
+        {
+          initial_id = this.selectedItems[j].split("-")[0].split(".");
+          initial_id[0] = "applyjson";
+          choosen_id = this.selectedItems[j].split("-")[1];
+          for ( k=1; k<initial_id.length; k++){
+            postpref = postpref + "." + initial_id[k] ;
+          }
+
+          check_presence = eval(postpref).indexOf(choosen_id);
+          if (check_presence == -1)
+             eval(postpref).push(choosen_id);
+        }
+      }
+       console.log(this.applyjson);
+       this.presentAlert(JSON.stringify(this.applyjson));
+    let link = 'http://54.172.94.76:9000/api/v1/customers/preferences';
+    let data =  {"email":"name","preferences":JSON.stringify(this.applyjson)};
+    console.log("data to send" + JSON.stringify(data));
+    this.http.post(link, data)
+      .subscribe(data => {
+        console.log("Ok" + data);
+        // this.data.response = data.body;
+      }, error => {
+        console.log("Oooops!");
+      });
+   }
+
+//   this.http.get('http://54.172.94.76:9000/api/v1/customers/preferences )
+// .map(res => res.json())
+// .subscribe(
+//   data => {
+//   console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
+//   this.dashboardlist = data.data;
+//   this.nextlength = data.data.length;
+// },
+// err => console.error(err)
+// );
+
+   clearall(){
+      this.selectedItems=new Array();
+   }
 }

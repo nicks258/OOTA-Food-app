@@ -27,12 +27,12 @@ export class SearchPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
   }
-   
-  
+
+
   resetsearch(){
     this.flag = 1;
   }
-  
+
   goto_item(searchdatas){
     this.data_stringify = JSON.stringify(searchdatas);
     console.log("jabgjak : "+ this.data_stringify);
@@ -43,7 +43,7 @@ export class SearchPage {
           console.log(this.searchQuery);
    	      if (this.searchQuery != ''){
           this.flag = 0;
-	        this.http.get('http://54.172.94.76:9000/api/v1/search/'+this.searchQuery+'?lat=43.2673&lng=-113.4859')
+	        this.http.get('http://54.172.94.76:9000/api/v1/search/'+this.searchQuery+'?lat=37.40879&lng=-121.98857')
 		      .map(res => res.json())
 		      .subscribe(
 		        data => {

@@ -6,7 +6,6 @@ import { CartPage } from '../pages/cart/cart';
 import { HomePage } from '../pages/home/home';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { LoginPage } from '../pages/login/login';
-import { LogoutPage } from '../pages/logout/logout';
 import { PreferencePage } from '../pages/preference/preference';
 import { NativeStorage} from "@ionic-native/native-storage";
 
@@ -24,18 +23,21 @@ export class MyApp {
   {
     platform.ready().then(() => {
       let env = this;
+      let nav = this.nav;
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Cart', component: CartPage },
-      { title: 'Preference', component: PreferencePage },
-      { title: 'Logout', component: LogoutPage }
+      { title: 'Preference', component: PreferencePage }
+      // { title: 'Logout', component: LogoutPage }
     ];
 
       this.nativeStorage.getItem('user')
         .then( function (data) {
           // user is previously logged and we have his data
           // we will let him access the app
+          // this.nav.setRoot(HomePage);
+          // this.rootPage = HomePage;
           env.nav.push(HomePage);
           setTimeout(() => {
             this.splashScreen.hide();
@@ -76,9 +78,15 @@ export class MyApp {
     });
   }
 
-  // openPage(page) {
-  //   // Reset the content nav to have just this page
-  //   // we wouldn't want the back button to show in this scenario
-  //   this.nav.setRoot(page.component);
-  // }
+  openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.nav.setRoot(page.component);
+  }
+  logout() {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
+    this.nativeStorage.remove('user');
+    this.nav.setRoot(LoginPage, {}, {animate: true, direction: 'forward'});
+  }
 }

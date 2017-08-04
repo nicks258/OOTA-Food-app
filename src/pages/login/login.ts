@@ -3,14 +3,16 @@ import { NavController, NavParams,LoadingController } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
+import { App  } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  rootPage: any ;
   FB_APP_ID: number = 125195224754920;
-  constructor(public navCtrl: NavController,public fb: Facebook,public loadingCtrl: LoadingController, public nativeStorage: NativeStorage, public navParams: NavParams,
+  constructor(public app: App,public navCtrl: NavController,public fb: Facebook,public loadingCtrl: LoadingController, public nativeStorage: NativeStorage, public navParams: NavParams,
               public googlePlus: GooglePlus ) {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
@@ -23,6 +25,7 @@ export class LoginPage {
 
 
   //FB Login Starts HERE
+
     let permissions = new Array<string>();
     let nav = this.navCtrl;
     let env = this;
@@ -46,8 +49,11 @@ export class LoginPage {
                 picture: user.picture
               })
               .then(function(){
+                // this.nav.setRoot(HomePage);
+                nav.setRoot(HomePage);
+                // this.app.getRootNav().setRoot( HomePage );
+                // this.rootPage = HomePage;
                 nav.push(HomePage);
-                // nav.push(UserPage);
               }, function (error) {
                 console.log(error);
               })
