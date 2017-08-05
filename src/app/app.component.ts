@@ -34,13 +34,18 @@ export class MyApp {
       { title: 'Search', component: SearchPage, icon: 'search'},
       { title: 'Profile', component: UserPage, icon: 'contact' }
     ];
-
+      
       this.nativeStorage.getItem('user')
         .then( function (data) {
           // user is previously logged and we have his data
           // we will let him access the app
           // this.nav.setRoot(HomePage);
           // this.rootPage = HomePage;
+        env.user = {
+        name: data.name,
+        gender: data.gender,
+        picture: data.picture
+      };
           setTimeout(() => {
             env.nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});//->
             this.splashScreen.hide();
