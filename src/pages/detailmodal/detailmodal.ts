@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { PreferencePage } from '../preference/preference';
+import { LoadingController } from 'ionic-angular';
+
+import { Http } from '@angular/http';
 @IonicPage()
 @Component({
   selector: 'page-detailmodal',
@@ -9,17 +12,21 @@ import { PreferencePage } from '../preference/preference';
 export class DetailmodalPage {
   data: Array<{value: number}> = [];
   details : any;
+  restaurantInfo : any;
+  nextlength : any;
   detaildata : any;
   rating : any;
   mealdetails : any;
   bgcol: any;
   public value;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public loadingCtrl: LoadingController,public http: Http) {
      this.value = navParams.get("value");
      this.details = navParams.get("details");
      this.rating = this.details.restaurant.rating;
      this.mealdetails = this.details;
+     this.restaurantInfo = navParams.get("current_detail");
+     //this.fetchRestaurantInfo();
      console.log(this.rating);
      console.log(this.value);
      this.data.push({
@@ -45,10 +52,36 @@ export class DetailmodalPage {
     console.log('ionViewDidLoad DetailmodalPage');
     document.getElementById("ioncontent").style.backgroundColor = this.bgcol ;
   }
-  
+
 
   goto_preference(){
      this.navCtrl.push(PreferencePage);
   }
+  fetchRestaurantInfo(){
+    let loadingPopup = this.loadingCtrl.create({
+      content: 'Loading Restaurants...',
+      spinner: 'circles'
+    });
+    loadingPopup.present();
 
+
+    this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
+          setTimeout(() => {
+            this.restaurantInfo = data.data.restaurant;
+            this.nextlength = data.data.restaurant.length;
+            console.log(this.restaurantInfo);
+            loadingPopup.dismiss();
+          }, 1000);
+        },
+        err => console.error(err)
+      );
+
+
+
+
+  }
 }

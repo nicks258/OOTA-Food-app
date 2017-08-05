@@ -16,15 +16,16 @@ import { NativeStorage} from "@ionic-native/native-storage";
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
+  user: any;
   rootPage: any ;
-
+  userReady: boolean = false;
   pages: Array<{title: string, component: any, icon: any}>;
 
   constructor(public platform: Platform,public nativeStorage: NativeStorage,public googlePlus: GooglePlus, public statusBar: StatusBar, public splashScreen: SplashScreen)
   {
     platform.ready().then(() => {
       let env = this;
+
       let nav = this.nav;
     // used for an example of ngFor and navigation
     this.pages = [
@@ -34,14 +35,20 @@ export class MyApp {
       { title: 'Search', component: SearchPage, icon: 'search'},
       { title: 'Profile', component: UserPage, icon: 'contact' }
     ];
-      
-      // -  this.nativeStorage.getItem('user')
-      //   .then( function (data) {
-      //   env.user = {
-      //   name: data.name,
-      //   gender: data.gender,
-      //   picture: data.picture
-      // };
+
+
+      this.nativeStorage.getItem('user')
+        .then( function (data) {
+          // user is previously logged and we have his data
+          // we will let him access the app
+          // this.nav.setRoot(HomePage);
+          // this.rootPage = HomePage;
+        env.user = {
+        name: data.name,
+        gender: data.gender,
+        picture: data.picture
+      };
+          env.userReady = true;
           setTimeout(() => {
             env.nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});//->
             this.splashScreen.hide();
@@ -61,7 +68,7 @@ export class MyApp {
             this.splashScreen.hide();
           }, 800);
           //->env.nav.setRoot(LoginPage, {}, {animate: true, direction: 'forward'});
-          
+
 
 
           // setTimeout(() => {

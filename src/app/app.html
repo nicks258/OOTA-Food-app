@@ -7,12 +7,13 @@
     </ion-avatar>
     </ion-toolbar>
   </ion-header> -->
-  <ion-content>
+  <ion-content >
 
     <ion-list>
     <ion-item>
-    <ion-avatar class="profimg">
-     <!-- -   <img [src]="user.picture"> -->
+
+    <ion-avatar *ngIf='userReady' class="profimg">
+      <img [src]="user.picture">
     </ion-avatar>
   </ion-item>
 

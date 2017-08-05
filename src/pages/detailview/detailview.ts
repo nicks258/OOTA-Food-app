@@ -4,6 +4,8 @@ import { ModalController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { DetailmodalPage } from '../detailmodal/detailmodal';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 @IonicPage()
 @Component({
   selector: 'page-detailview',
@@ -21,9 +23,11 @@ export class DetailviewPage {
         long : any;
         rname : any;
         mylatitude : any;
+        current_detail : any;
         mylongitude : any;
+        restaurantInfo : any;
   data: Array<{title: string, details: string, icon: string, bgcolor: string, showDetails: boolean, value: number}> = [];
-  constructor(public navCtrl: NavController, public platform: Platform, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public platform: Platform, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation,public http: Http) {
       this.sdata = navParams.get('data_search');
       console.log(this.sdata);
       this.sdata = JSON.parse(this.sdata);
@@ -41,7 +45,7 @@ export class DetailviewPage {
           details: 'DetailmodalPage',
           icon: 'ios-add-circle-outline',
           bgcolor: '#FEFA96',
-          showDetails: false, 
+          showDetails: false,
           value: 1
         },{
           title: 'Review',
@@ -66,13 +70,49 @@ export class DetailviewPage {
           value: 4
         });
   }
-  
+
   goto_detailmodal(value){
-      console.log(value);
-      this.navCtrl.push(DetailmodalPage, {
-       value: value,
-       details : this.sdata
+      if (value == 3)
+      {
+          let loadingPopup = this.loadingCtrl.create({
+      content: 'Loading Restaurants...',
+      spinner: 'circles'
     });
+    loadingPopup.present();
+
+
+    this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
+          setTimeout(() => {
+            this.restaurantInfo = data.data.restaurant;
+            this.nextlength = data.data.restaurant.length;
+            console.log(this.restaurantInfo);
+
+            this.navCtrl.push(DetailmodalPage, {
+            value: value,
+            details : this.sdata,
+            current_detail : this.restaurantInfo
+            });
+
+            loadingPopup.dismiss();
+          }, 1000);
+        },
+        err => console.error(err)
+      );
+      }
+      else
+      {
+          this.navCtrl.push(DetailmodalPage, {
+            value: value,
+            details : this.sdata,
+            current_detail : "ok"
+            });
+      }
+      console.log(value);
+      
   }
 
   ionViewDidLoad() {
@@ -89,7 +129,7 @@ presentActionSheet() {
           text: 'Whatsapp',
           icon: !this.platform.is('ios') ? 'logo-whatsapp' : null,
           handler: () => {
-            //window.location.href="whatsapp://send?text=The text to share!";
+            window.location.href="whatsapp://send?text=The text to share!";
             console.log('Whatsapp clicked');
           }
         },
@@ -97,7 +137,7 @@ presentActionSheet() {
           text: 'Facebook',
           icon: !this.platform.is('ios') ? 'logo-facebook' : null,
           handler: () => {
-            //window.location.href="fb-messenger://share/?link= https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fsharing%2Freference%2Fsend-dialog&app_id=123456789";
+            window.location.href="fb-messenger://share/?link= https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fsharing%2Freference%2Fsend-dialog&app_id=123456789";
             console.log('Facebook clicked');
           }
         }
@@ -106,7 +146,31 @@ presentActionSheet() {
     actionSheet.present();
   }
 
+fetchRestaurantInfo(){
+    let loadingPopup = this.loadingCtrl.create({
+      content: 'Loading Restaurants...',
+      spinner: 'circles'
+    });
+    loadingPopup.present();
 
+
+    this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
+          setTimeout(() => {
+            this.restaurantInfo = data.data.restaurant;
+            this.nextlength = data.data.restaurant.length;
+            console.log(this.restaurantInfo);
+            loadingPopup.dismiss();
+          }, 1000);
+        },
+        err => console.error(err)
+      );
+
+
+  }
 
 
 }
