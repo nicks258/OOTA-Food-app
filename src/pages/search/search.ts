@@ -41,14 +41,18 @@ export class SearchPage {
 
    fetchsearch(){
           console.log(this.searchQuery);
+          let jlength;
    	      if (this.searchQuery != ''){
           this.flag = 0;
+          this.items = [{"item":{"name" : "Searching..."}}]
 	        this.http.get('http://54.172.94.76:9000/api/v1/search/'+this.searchQuery+'?lat=37.40879&lng=-121.98857')
 		      .map(res => res.json())
 		      .subscribe(
 		        data => {
 		            this.items = data.data;
-                console.log(this.items);
+                jlength = this.items.length;
+                if (jlength == 0)
+                  this.items = [{"item":{"name" : "No Data found. Try another keyword"}}]
 		        },
 		        err => console.error(err)
 		    );

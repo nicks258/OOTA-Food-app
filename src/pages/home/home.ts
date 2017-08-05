@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { SearchPage } from '../search/search';
 import { DetailviewPage } from '../detailview/detailview';
+import { CartPage } from '../cart/cart';
 import { LoadingController } from 'ionic-angular';
 
 import { Http } from '@angular/http';
@@ -41,6 +42,12 @@ export class HomePage {
   goto_searchpage(limit){
     this.navCtrl.push(SearchPage);
   }
+
+  goto_cartpage(){
+     this.navCtrl.setRoot(CartPage, {}, {animate: true, direction: 'forward'});
+  }
+
+
   goto_detailview(data){
     this.data_stringify = JSON.stringify(data);
     this.navCtrl.push(DetailviewPage,{data_search : this.data_stringify, latitude : this.mylatitude , longitude : this.mylongitude});
@@ -65,12 +72,15 @@ export class HomePage {
       .subscribe(
         data => {
           console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
+          setTimeout(() => {
           this.dashboardlist = data.data;
           this.nextlength = data.data.length;
+          loadingPopup.dismiss();
+         }, 1000);
         },
         err => console.error(err)
       );
-    loadingPopup.dismiss();
+
 
 
 

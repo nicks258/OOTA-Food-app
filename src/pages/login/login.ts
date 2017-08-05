@@ -50,10 +50,9 @@ export class LoginPage {
               })
               .then(function(){
                 // this.nav.setRoot(HomePage);
-                nav.setRoot(HomePage);
                 // this.app.getRootNav().setRoot( HomePage );
                 // this.rootPage = HomePage;
-                nav.push(HomePage);
+                nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
               }, function (error) {
                 console.log(error);
               })
@@ -84,14 +83,14 @@ export class LoginPage {
           picture: user.imageUrl
         })
           .then(function(){
-            nav.push(HomePage);
+            nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
           }, function (error) {
-            nav.push(HomePage);
+            nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
             console.log(error);
           })
       }, function (error) {
         loading.dismiss();
-        nav.push(HomePage);
+        nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
       });
   }
 

@@ -5,7 +5,7 @@
     </button>
     <ion-title><p class="text-color">Home</p></ion-title>
     <ion-buttons end class="cart-space">
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="goto_cartpage()">
         <img src="assets/icon/cart.svg">
         <ion-badge id="notifications-badge">1</ion-badge>
       </button>
@@ -23,11 +23,11 @@
 
  <div *ngFor="let dashboard of dashboardlist">
 <!--card-->
-  <ion-card class="top_dist">
+  <ion-card class="top_dist" style="height: 27.6vh">
        <ion-card-header (click)="goto_detailview(dashboard)">
           <ion-row>
             <ion-col col-5>
-              <img src="assets/img/background.png" style="width:83%">
+              <img src="assets/img/background.png" style="height: 19vh">
             </ion-col>
             <ion-col col-7>
                 <p class="fontsz" style="padding-top:5px">{{dashboard.item.name}}</p>

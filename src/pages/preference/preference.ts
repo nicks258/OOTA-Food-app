@@ -124,7 +124,7 @@ export class PreferencePage {
   ionViewDidLoad() {
      console.log('ionViewDidLoad PreferencePage');
      document.getElementById("budget").style.color = "white";
-     document.getElementById("budget").style.backgroundColor = "#6666ff";
+     document.getElementById("budget").style.backgroundColor = "#0CC4A2";
   }
 
   selected(option){
@@ -158,12 +158,12 @@ export class PreferencePage {
      let i;
      for (i = 0; i < x.length; i++) {
          x[i].style.color = "black";
-         x[i].style.backgroundColor="white";
+         x[i].style.backgroundColor="#F4F6F5";
       }
 
 
      document.getElementById(option).style.color = "white";
-     document.getElementById(option).style.backgroundColor = "#6666ff";
+     document.getElementById(option).style.backgroundColor = "#0CC4A2";
 
 
   }
@@ -198,7 +198,7 @@ export class PreferencePage {
       let pos = this.selectedItems.indexOf(val);
       this.selectedItems.splice(pos, 1);
     }
-    this.presentAlert(this.selectedItems);
+    //this.presentAlert(this.selectedItems);
  }
 
  presentAlert(options) {
@@ -249,24 +249,26 @@ export class PreferencePage {
           for ( k=1; k<initial_id.length; k++){
             postpref = postpref + "." + initial_id[k] ;
           }
-
+          console.log("chosenid : "+postpref);
+          console.log(choosen_id);
           check_presence = eval(postpref).indexOf(choosen_id);
+          console.log(check_presence);
           if (check_presence == -1)
              eval(postpref).push(choosen_id);
-        }
+         }
       }
        console.log(this.applyjson);
        this.presentAlert(JSON.stringify(this.applyjson));
-    let link = 'http://54.172.94.76:9000/api/v1/customers/preferences';
-    let data =  {"email":"name","preferences":JSON.stringify(this.applyjson)};
-    console.log("data to send" + JSON.stringify(data));
-    this.http.post(link, data)
-      .subscribe(data => {
-        console.log("Ok" + data);
-        // this.data.response = data.body;
-      }, error => {
-        console.log("Oooops!");
-      });
+    // let link = 'http://54.172.94.76:9000/api/v1/customers/preferences';
+    // let data =  {"email":"name","preferences":JSON.stringify(this.applyjson)};
+    // console.log("data to send" + JSON.stringify(data));
+    // this.http.post(link, data)
+    //   .subscribe(data => {
+    //     console.log("Ok" + data);
+    //     // this.data.response = data.body;
+    //   }, error => {
+    //     console.log("Oooops!");
+    //   });
    }
 
 //   this.http.get('http://54.172.94.76:9000/api/v1/customers/preferences )
@@ -279,7 +281,24 @@ export class PreferencePage {
 // },
 // err => console.error(err)
 // );
-
+   radioItem(id){
+         let initial_id = id.split("-")[0];
+         let i, current_initialid, flag=0;
+         for (i=0;i<this.selectedItems.length; i++)
+        {
+         current_initialid = this.selectedItems[i].split("-")[0];
+         if (initial_id == current_initialid){
+            this.selectedItems[i] = id;
+            flag = 1;
+          }
+        }
+      if (flag == 0)
+      {
+           this.selectedItems.push(id);
+      }
+      console.log(flag);
+      console.log(this.selectedItems);
+   }
    clearall(){
       this.selectedItems=new Array();
    }

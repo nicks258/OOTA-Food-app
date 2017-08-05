@@ -16,15 +16,22 @@
 // automatically applied to the <body> element in the app.
 
 
-.toolbar-background {
-       background-color : #54cdde;
-   }
+//.toolbar-background {
+//       background-color : #54cdde;
+//   }
 .text-color{
-       color : #000;
+       color : white;
    }
 .body-content{
 	background-color :  #54cdde;
 }
 .back-button.show-back-button {
 	color: white;
+}
+.profimg{
+	margin-left: 18%;
+}
+.profimage{
+	height:27vh !important;
+	width:40vw !important;
 }

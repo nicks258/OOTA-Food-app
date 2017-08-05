@@ -89,6 +89,7 @@ presentActionSheet() {
           text: 'Whatsapp',
           icon: !this.platform.is('ios') ? 'logo-whatsapp' : null,
           handler: () => {
+            //window.location.href="whatsapp://send?text=The text to share!";
             console.log('Whatsapp clicked');
           }
         },
@@ -96,6 +97,7 @@ presentActionSheet() {
           text: 'Facebook',
           icon: !this.platform.is('ios') ? 'logo-facebook' : null,
           handler: () => {
+            //window.location.href="fb-messenger://share/?link= https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fsharing%2Freference%2Fsend-dialog&app_id=123456789";
             console.log('Facebook clicked');
           }
         }

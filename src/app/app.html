@@ -1,19 +1,30 @@
 <ion-menu [content]="content">
-  <ion-header>
+  <!-- <ion-header>
     <ion-toolbar>
-      <ion-title><p class="text-color">Menu</p></ion-title>
+      <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTycewbr9Y9lN7Qn1Yl5e9CHBbleZpUMjqD23wcfOp5FKbhNMeUSg"></p>
+     <ion-avatar item-start>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTycewbr9Y9lN7Qn1Yl5e9CHBbleZpUMjqD23wcfOp5FKbhNMeUSg">
+    </ion-avatar>
     </ion-toolbar>
-  </ion-header>
-
+  </ion-header> -->
   <ion-content>
+
     <ion-list>
+    <ion-item>
+    <ion-avatar class="profimg">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTycewbr9Y9lN7Qn1Yl5e9CHBbleZpUMjqD23wcfOp5FKbhNMeUSg" class="profimage">
+    </ion-avatar>
+  </ion-item>
+
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        <ion-icon name="{{p.icon}}" style="padding-right: 10%"></ion-icon> {{p.title}}
       </button>
       <button menuClose ion-item (click)="logout()">
-        logout
+        <ion-icon name="arrow-back" style="padding-right: 10%"></ion-icon> logout
       </button>
+      <button menuClose ion-item></button>
     </ion-list>
+
   </ion-content>
 
 </ion-menu>
