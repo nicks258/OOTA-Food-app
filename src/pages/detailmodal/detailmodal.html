@@ -23,8 +23,8 @@
 
 </ion-header>
 
-
-<ion-content style="background-color:#FEFDD8;color:grey;" padding>
+<!--style="background-color:#FEFDD8;color:grey;"-->
+<ion-content padding id="ioncontent">
 
       <div class="review" *ngFor="let d of data">
 
@@ -125,22 +125,33 @@
              <!--</ion-card-content>-->
 
              <!--<ion-content>-->
+               <ion-row>
+                   <ion-col col-4 style="text-align: center; color:black">
+                       <h2> 4.3 <ion-icon name="star"></ion-icon> </h2>
+                       Meal Rating 
+                   </ion-col>
+                   <ion-col col-4 style="text-align: center; color:black">
+                        <h2> 3.5 <ion-icon name="star"></ion-icon> </h2>
+                        Restaurant Rating
+                   </ion-col>
+                   <ion-col col-4 style="text-align: center; color:black">
+                        <h2> 71 <ion-icon name="list-box"></ion-icon> </h2>
+                        Reviews
+                   </ion-col>
+               </ion-row>
+
+               <hr>
+
 
                <ion-list no-lines>
-
-
-
-                   <ion-item>
+                   <ion-item style="background-color: #DEF9D6" text-wrap>
 
                      <ion-avatar item-left>
                        <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png">
                      </ion-avatar>
-
                      <h2>Test review</h2>
                      <h4 > <font color="grey">10 days ago</font></h4>
-                     <p>Its really awesome place to visit with family</p>
-
-                     <!--<ion-icon danger name="sad"></ion-icon>-->
+                     <p style="padding-top:10px">"Its really awesome place to visit with familyIts really awesome place to visit with familyIts really awesome place to visit with familyIts really awesome place to visit with family"</p>
                      <ion-icon secondary name="happy"></ion-icon>
                      <br><br>
                      <button ion-button color="#fff" >
@@ -150,7 +161,7 @@
 
                    </ion-item>
                 <hr>
-                 <ion-item>
+                 <ion-item style="background-color: #DEF9D6" text-wrap>
 
                    <ion-avatar item-left>
                      <img src="https://developers.google.com/webmasters/mobile-sites/imgs/mobile-user.png">
@@ -158,7 +169,7 @@
 
                    <h2>Average</h2>
                    <h4 > <font color="grey">12 days ago</font></h4>
-                   <p>Good For Weekends Outing. Normal service</p>
+                   <p style="padding-top:10px">"Good For Weekends Outing. Normal serviceGood For Weekends Outing. Normal serviceGood For Weekends Outing. Normal service"</p>
 
                    <ion-icon danger name="sad"></ion-icon>
                    <br><br>
@@ -170,7 +181,7 @@
                  </ion-item>
 
                  <hr>
-                 <ion-item>
+                 <ion-item style="background-color: #DEF9D6" text-wrap>
 
                    <ion-avatar item-left>
                      <img src="https://images.onlinelabels.com/images/clip-art/dagobert83/dagobert83_female_user_icon.png">
@@ -178,7 +189,7 @@
 
                    <h2>Wow!!!</h2>
                    <h4 > <font color="grey">20 days ago</font></h4>
-                   <p>Good For team lunch!! Service is awesome</p>
+                   <p style="padding-top:10px">"Good For team lunch!! Service is awesomeGood For team lunch!! Service is awesomeGood For team lunch!! Service is awesome"</p>
 
                    <ion-icon secondary name="happy"></ion-icon>
                    <br><br>
@@ -188,11 +199,9 @@
                    </button>
 
                  </ion-item>
-                   <!--<ion-item-options>-->
-                    <!---->
-                   <!--</ion-item-options>-->
+
                  <hr>
-                 <ion-item>
+                 <ion-item style="background-color: #DEF9D6" text-wrap>
 
                    <ion-avatar item-left>
                      <img src="https://thumbs.dreamstime.com/x/user-icon-9233164.jpg">
@@ -200,7 +209,7 @@
 
                    <h2>Poor Service!!</h2>
                    <h4 > <font color="grey">20 days ago</font></h4>
-                   <p>Food is really costly and quality is poor.</p>
+                   <p style="padding-top:10px">"Food is really costly and quality is poorFood is really costly and quality is poorFood is really costly and quality is poor"</p>
 
                    <ion-icon danger name="sad"></ion-icon>
                    <br><br>
@@ -272,7 +281,7 @@
                <!--</p>-->
 
            </div>
-           <div class="review" *ngIf="d.value == 3" class="text-color">
+           <div class="review" *ngIf="d.value == 3">
                Restaurant and menu
            </div>
            <div class="review" *ngIf="d.value == 4">
@@ -283,7 +292,7 @@
                <p>
                 Help us serve you better by updating your preference.
                </p>
-               <button ion-button full (click)="goto_preference()">Go To My Preference</button>
+               <button ion-button full (click)="goto_preference()" style="background-color:#F3A836">Go To My Preference</button>
            </div>
       </div>
 </ion-content>
