@@ -85,12 +85,18 @@ export class LoginPage {
           .then(function(){
             nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
           }, function (error) {
-            nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
-            console.log(error);
+             setTimeout(() => {
+              nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+              console.log(error);
+             }, 1000);
           })
       }, function (error) {
-        loading.dismiss();
-        nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+        setTimeout(() => {
+            loading.dismiss();
+            nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+            console.log(error);
+         }, 1000);
+
       });
   }
 
