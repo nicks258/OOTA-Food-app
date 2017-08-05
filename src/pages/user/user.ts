@@ -34,17 +34,4 @@ export class UserPage {
       console.log(error);
     });
   }
-
-  doFbLogout(){
-    var nav = this.navCtrl;
-    let env = this;
-    this.fb.logout()
-    .then(function(response) {
-      //user logged out so we will remove him from the NativeStorage
-      env.nativeStorage.remove('user');
-      nav.push(LoginPage);
-    }, function(error){
-      console.log(error);
-    });
-  }
 }
