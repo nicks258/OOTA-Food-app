@@ -259,16 +259,16 @@ export class PreferencePage {
       }
        console.log(this.applyjson);
        this.presentAlert(JSON.stringify(this.applyjson));
-    // let link = 'http://54.172.94.76:9000/api/v1/customers/preferences';
-    // let data =  {"email":"name","preferences":JSON.stringify(this.applyjson)};
-    // console.log("data to send" + JSON.stringify(data));
-    // this.http.post(link, data)
-    //   .subscribe(data => {
-    //     console.log("Ok" + data);
-    //     // this.data.response = data.body;
-    //   }, error => {
-    //     console.log("Oooops!");
-    //   });
+    let link = 'http://54.172.94.76:9000/api/v1/customers/preferences';
+    let data =  {"email":"name","preferences":JSON.stringify(this.applyjson)};
+    console.log("data to send" + JSON.stringify(data));
+    this.http.post(link, data)
+      .subscribe(data => {
+        console.log("Ok" + data);
+        // this.data.response = data.body;
+      }, error => {
+        console.log("Oooops!");
+      });
    }
 
 //   this.http.get('http://54.172.94.76:9000/api/v1/customers/preferences )
