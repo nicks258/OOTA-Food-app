@@ -17,14 +17,17 @@ export class LoginPage {
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad LoginPage');
-  // }
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad LoginPage');
+  }
 
-  goto_homepage(){
+  doFbLogin(){
+    let loading = this.loadingCtrl.create({
+      content: 'Logging In...',
+      spinner: 'circles'
+    });
+    loading.present();
 
-
-  //FB Login Starts HERE
 
     let permissions = new Array<string>();
     let nav = this.navCtrl;
@@ -49,16 +52,24 @@ export class LoginPage {
                 picture: user.picture
               })
               .then(function(){
-                // this.nav.setRoot(HomePage);
-                // this.app.getRootNav().setRoot( HomePage );
-                // this.rootPage = HomePage;
+                setTimeout(() => {
+                loading.dismiss();
                 nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+                }, 1000);
               }, function (error) {
+                 setTimeout(() => {
+                loading.dismiss();
+                // nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
                 console.log(error);
+                }, 1000);
               })
           })
       }, function(error){
-        console.log(error);
+        setTimeout(() => {
+                loading.dismiss();
+                //nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+                console.log(error);
+                }, 1000);
       });
 
   }
@@ -66,7 +77,8 @@ export class LoginPage {
     let env = this;
     let nav = this.navCtrl;
     let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: 'Logging In...',
+      spinner: 'circles'
     });
     loading.present();
     this.googlePlus.login({
@@ -75,25 +87,27 @@ export class LoginPage {
       'offline': true
     })
       .then(function (user) {
-        loading.dismiss();
-
         env.nativeStorage.setItem('user', {
           name: user.displayName,
           email: user.email,
           picture: user.imageUrl
         })
           .then(function(){
+            setTimeout(() => {
+             loading.dismiss();
             nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+          }, 1000);
           }, function (error) {
              setTimeout(() => {
-              nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+              loading.dismiss();
+              //nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
               console.log(error);
              }, 1000);
           })
       }, function (error) {
         setTimeout(() => {
             loading.dismiss();
-            nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+            //nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
             console.log(error);
          }, 1000);
 
