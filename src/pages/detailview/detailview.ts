@@ -131,7 +131,9 @@ restaurantandinfo(value){
       spinner: 'circles'
     });
     loadingPopup.present();
-       this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
+       let id = this.sdata.item.restaurant_id;
+       console.log(id);
+       this.http.get('http://54.172.94.76:9000/api/v1/restaurants/'+id)
       .map(res => res.json())
       .subscribe(
         data => {
