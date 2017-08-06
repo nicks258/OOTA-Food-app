@@ -31,6 +31,7 @@ export class DetailviewPage {
         menuDetailsToSend : any;
         menuDetailsToSendLength : any;
         nextlength :  any;
+        info : any;
   data: Array<{title: string, details: string, icon: string, bgcolor: string, showDetails: boolean, value: number}> = [];
   constructor(public navCtrl: NavController, public platform: Platform, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation,public http: Http) {
       this.sdata = navParams.get('data_search');
@@ -79,36 +80,7 @@ export class DetailviewPage {
   goto_detailmodal(value){
       if (value == 3)
       {
-          let loadingPopup = this.loadingCtrl.create({
-      content: 'Loading Restaurants...',
-      spinner: 'circles'
-    });
-    loadingPopup.present();
-
-
-    this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
-      .map(res => res.json())
-      .subscribe(
-        data => {
-          // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
-          setTimeout(() => {
-            this.restaurantInfo = data.data.restaurant;
-            this.nextlength = data.data.restaurant.length;
-            console.log(this.restaurantInfo);
-
-            this.navCtrl.push(DetailmodalPage, {
-            value: value,
-            details : this.sdata,
-            current_detail : this.restaurantInfo,
-            menuDetailsToSend : this.menuItems,
-            menuDetailsToSendLength : this.menuItemsLength
-            });
-
-            loadingPopup.dismiss();
-          }, 1000);
-        },
-        err => console.error(err)
-      );
+         this.restaurantandinfo(value);
       }
       else
       {
@@ -152,34 +124,34 @@ presentActionSheet() {
     });
     actionSheet.present();
   }
-
-fetchRestaurantInfo(){
-    let loadingPopup = this.loadingCtrl.create({
-      content: 'Loading Restaurants details...',
+  
+restaurantandinfo(value){
+   let loadingPopup = this.loadingCtrl.create({
+      content: 'Loading Restaurants...',
       spinner: 'circles'
     });
     loadingPopup.present();
-
-
-    this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
+       this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
       .map(res => res.json())
       .subscribe(
         data => {
           // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
           setTimeout(() => {
+            this.info = data.data;
             this.restaurantInfo = data.data.restaurant;
+            this.menu =  data.data.menu;
             this.nextlength = data.data.restaurant.length;
-            this.menuItems = data.data.menu;
-            this.menuItemsLength = data.data.menu.length;
             console.log(this.restaurantInfo);
+            this.navCtrl.push(DetailmodalPage, {
+            value: value,
+            details : this.sdata,
+            current_detail : this.info
+            });
+
             loadingPopup.dismiss();
           }, 1000);
         },
         err => console.error(err)
       );
-
-
-  }
-
-
+}
 }
