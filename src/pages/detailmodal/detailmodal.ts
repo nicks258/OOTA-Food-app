@@ -22,7 +22,7 @@ export class DetailmodalPage {
   public value;
   public menuDeatils: any;
   public menuDeatilsLength: any;
-
+  public len : any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public loadingCtrl: LoadingController,public http: Http) {
      this.value = navParams.get("value");
      this.details = navParams.get("details");
@@ -31,6 +31,9 @@ export class DetailmodalPage {
      this.info = navParams.get("current_detail");
      console.log(this.rating);
      console.log(this.value);
+     console.log(this.info);
+     this.len = this.info.length;
+     console.log(this.len);
      this.data.push({
           value: this.value
         })

@@ -82,6 +82,9 @@ export class DetailviewPage {
       {
          this.restaurantandinfo(value);
       }
+      else if (value == 1){
+         this.mealdetail(value);
+      }
       else
       {
           this.navCtrl.push(DetailmodalPage, {
@@ -156,4 +159,36 @@ restaurantandinfo(value){
         err => console.error(err)
       );
 }
+
+mealdetail(value){
+   let loadingPopup = this.loadingCtrl.create({
+      content: 'Loading Restaurants...',
+      spinner: 'circles'
+    });
+    loadingPopup.present();
+       let id = this.sdata.item.restaurant_id;
+       console.log(id);
+       this.http.get('http://54.172.94.76:9000/api/v1/restaurants/'+id)
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
+          setTimeout(() => {
+            this.info = data.data;
+            this.restaurantInfo = data.data.restaurant;
+            this.menu =  data.data.menu;
+            this.nextlength = data.data.restaurant.length;
+            console.log(this.restaurantInfo);
+            this.navCtrl.push(DetailmodalPage, {
+            value: value,
+            details : this.sdata,
+            current_detail : this.menu
+            });
+
+            loadingPopup.dismiss();
+          }, 1000);
+        },
+        err => console.error(err)
+      );
+      }
 }
