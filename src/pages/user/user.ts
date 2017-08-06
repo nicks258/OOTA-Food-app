@@ -34,4 +34,5 @@ export class UserPage {
       console.log(error);
     });
   }
+}
 
