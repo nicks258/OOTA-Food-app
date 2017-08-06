@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { DetailviewPage } from '../detailview/detailview';
-
+import { LoadingController } from 'ionic-angular';
 /**
  * Generated class for the SearchPage page.
  *
@@ -19,9 +19,12 @@ export class SearchPage {
   public searchQuery: string = '';
          data_stringify : any;
          items : any;
+         item : any = [];
+         default : any;
          flag : number = 1;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
-  	  //this.fetchsearch();
+
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, public http: Http) {
+  	  this.initial_search();
   }
 
   ionViewDidLoad() {
@@ -39,6 +42,33 @@ export class SearchPage {
     this.navCtrl.push(DetailviewPage,{data_search : this.data_stringify});
   }
 
+
+   initial_search(){
+    let loadingPopup = this.loadingCtrl.create({
+      content: 'Loading Restaurants...',
+      spinner: 'circles'
+    });
+    loadingPopup.present();
+
+    let i;
+          this.http.get('http://54.172.94.76:9000/api/v1/cuisines')
+          .map(res => res.json())
+          .subscribe(
+            data => {
+                setTimeout(() => {
+                this.default = data.data.cuisines;
+                for (i = 0;i<7;i++){
+                  console.log(this.default[i]);
+                  this.item.push(this.default[i]);
+                }
+                loadingPopup.dismiss();
+                }, 1000);
+                console.log(this.default);
+                console.log(this.item);
+            },
+            err => console.error(err)
+        );
+   }
    fetchsearch(){
           console.log(this.searchQuery);
           let jlength;

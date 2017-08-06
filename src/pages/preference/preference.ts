@@ -260,7 +260,7 @@ export class PreferencePage {
        console.log(this.applyjson);
        this.presentAlert(JSON.stringify(this.applyjson));
     let link = 'http://54.172.94.76:9000/api/v1/customers/preferences';
-    let data =  {"email":"name","preferences":JSON.stringify(this.applyjson)};
+    let data =  {"email":"mehrasumit258@gmail.com","preferences":JSON.stringify(this.applyjson)};
     console.log("data to send" + JSON.stringify(data));
     this.http.post(link, data)
       .subscribe(data => {

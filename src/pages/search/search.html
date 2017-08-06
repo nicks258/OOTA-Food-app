@@ -29,39 +29,19 @@
 
 <ion-card *ngIf="flag == 1">
   <ion-card-header>
-    Explore Nearby
+    <b>Explore Nearby</b>
   </ion-card-header>
 
   <ion-list>
-    <button ion-item>
+   <!--  <button ion-item>
       <ion-icon name="cart" item-start></ion-icon>
       Food
     </button>
-    <hr style="color:black">
-    <button ion-item>
-      <ion-icon name="medical" item-start></ion-icon>
-      Restaurant
+    <hr style="color:black"> -->
+    <button ion-item *ngFor="let item of item;" (click)='goto_item(item)'>
+      <div> {{item}} </div>
     </button>
-     <hr style="color:black"> 
-    <button ion-item>
-      <ion-icon name="cafe" item-start></ion-icon>
-      Indian
-    </button>
-     <hr style="color:black">
-    <button ion-item>
-      <ion-icon name="paw" item-start></ion-icon>
-      Chinese
-    </button>
-     <hr style="color:black">
-    <button ion-item>
-      <ion-icon name="beer" item-start></ion-icon>
-      Tandoori
-    </button>
-     <hr style="color:black">
-    <button ion-item>
-      <ion-icon name="planet" item-start></ion-icon>
-      Continental
-    </button>
+
   </ion-list>
 </ion-card>
 </ion-content>
