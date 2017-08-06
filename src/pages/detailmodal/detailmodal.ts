@@ -24,6 +24,7 @@ export class DetailmodalPage {
   public menuDeatils: any;
   public menuDeatilsLength: any;
   public len : any;
+  public mealinfoarraydesc : any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public loadingCtrl: LoadingController,public http: Http) {
      this.value = navParams.get("value");
      this.details = navParams.get("details");
@@ -34,6 +35,11 @@ export class DetailmodalPage {
      console.log(this.value);
      console.log(this.info);
      this.len = this.info.length;
+     for(let i=0;i<this.len;i++)
+     {
+             this.mealinfoarraydesc.push(this.info[i].item);
+     }
+
      console.log(this.len);
      this.data.push({
           value: this.value

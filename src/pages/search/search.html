@@ -17,7 +17,7 @@
 <ion-card *ngIf="flag != 1">
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)='goto_item(item)'>
-      <div> {{item.item.name}} </div>
+      <div> <ion-icon name="search" style="padding-right:14px"></ion-icon> {{item.item.name}} </div>
     </button>
      <hr style="color:black">
   
