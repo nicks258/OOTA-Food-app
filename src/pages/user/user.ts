@@ -27,7 +27,8 @@ export class UserPage {
       env.user = {
         name: data.name,
         gender: data.gender,
-        picture: data.picture
+        picture: data.picture,
+        email: data.email
       };
         env.userReady = true;
     }, function(error){

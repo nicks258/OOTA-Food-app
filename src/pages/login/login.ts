@@ -4,6 +4,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
 import { App  } from 'ionic-angular';
+import { Http } from '@angular/http';
 import { GooglePlus } from '@ionic-native/google-plus';
 @Component({
   selector: 'page-login',
@@ -11,9 +12,12 @@ import { GooglePlus } from '@ionic-native/google-plus';
 })
 export class LoginPage {
   rootPage: any ;
+  user: any;
+  userReady: boolean = false;
   FB_APP_ID: number = 125195224754920;
-  constructor(public app: App,public navCtrl: NavController,public fb: Facebook,public loadingCtrl: LoadingController, public nativeStorage: NativeStorage, public navParams: NavParams,
+  constructor(public app: App,public http: Http,public navCtrl: NavController,public fb: Facebook,public loadingCtrl: LoadingController, public nativeStorage: NativeStorage, public navParams: NavParams,
               public googlePlus: GooglePlus ) {
+
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
@@ -41,17 +45,22 @@ export class LoginPage {
         let params = new Array<string>();
 
         //Getting name and gender properties
-        env.fb.api("/me?fields=name,gender", params)
+        env.fb.api("/me?fields=name,email,gender", params)
           .then(function(user) {
             user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
             //now we have the users info, let's save it in the NativeStorage
             env.nativeStorage.setItem('user',
               {
                 name: user.name,
+                email: user.email,
                 gender: user.gender,
                 picture: user.picture
-              })
+
+              }
+              )
+
               .then(function(){
+                // console.log("sumit"+env.user.email);
                 setTimeout(() => {
                 loading.dismiss();
                 nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
@@ -71,10 +80,22 @@ export class LoginPage {
                 console.log(error);
                 }, 1000);
       });
+    // let link = 'http://54.172.94.76:9000/api/v1/customers';
+    // let data =  {"email":"mehrasumit258@gmail.com","preferences":JSON.stringify(this.applyjson)};
+    // console.log("data to send" + JSON.stringify(data));
+    // this.http.post(link, data)
+    //   .subscribe(data => {
+    //     console.log("Ok" + data);
+    //     // this.data.response = data.body;
+    //   }, error => {
+    //     console.log("Oooops!");
+    //   });
 
   }
   doGoogleLogin(){
     let env = this;
+    let email1 : any;
+    let name1 : any;
     let nav = this.navCtrl;
     let loading = this.loadingCtrl.create({
       content: 'Logging In...',
@@ -89,6 +110,8 @@ export class LoginPage {
       .then(function (user) {
         env.nativeStorage.setItem('user', {
           name: user.displayName,
+          name1: user.displayName,
+          email1: user.email,
           email: user.email,
           picture: user.imageUrl
         })
@@ -113,5 +136,25 @@ export class LoginPage {
 
       });
   }
+  ionViewCanEnter(){
+    let env = this;
+    this.nativeStorage.getItem('user')
+      .then(function (data){
+        env.user = {
+          name: data.name,
+          gender: data.gender,
+          picture: data.picture
+        };
+
+        env.userReady = true;
+      }, function(error){
+        console.log(error);
+      });
+  }
+
+
+
+
 
 }
+

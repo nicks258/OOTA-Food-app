@@ -4,7 +4,7 @@ import { SearchPage } from '../search/search';
 import { DetailviewPage } from '../detailview/detailview';
 import { CartPage } from '../cart/cart';
 import { LoadingController } from 'ionic-angular';
-
+import { NativeStorage } from '@ionic-native/native-storage';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -16,6 +16,8 @@ import 'rxjs/add/operator/map';
 export class HomePage {
   public dashboardlist : any;
   nextlength : any;
+  user: any;
+  userReady: boolean = false;
   data_stringify : any;
   data_limit : number = 6;
   data_start : number = 1;
@@ -23,8 +25,29 @@ export class HomePage {
   mylatitude : any;
   mylongitude : any;
   loc : any;
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController,public http: Http) {
-
+  constructor(public navCtrl: NavController,public nativeStorage: NativeStorage, public loadingCtrl: LoadingController,public http: Http) {
+    let env = this;
+    this.nativeStorage.getItem('user')
+      .then(function (data){
+        env.user = {
+          name: data.name,
+          gender: data.gender,
+          picture: data.picture,
+          email: data.email
+        };
+        console.log(env.user);
+        let link = 'http://54.172.94.76:9000/api/v1/customers';
+        console.log("lol"+env.user.email + "hus" + env.user.name);
+        http.post(link, {"firstName":env.user.name,"email":env.user.email})
+          .subscribe(data => {
+            console.log("lol"+env.user.email);
+          }, error => {
+            console.log("Oooops!");
+          });
+        env.userReady = true;
+      }, function(error){
+        console.log(error);
+      });
     this.mylatitude = 37.40879;
     this.mylongitude = -121.98857;
     this.Fetchdashboard(this.data_start, this.data_limit);
@@ -86,4 +109,9 @@ export class HomePage {
 
   }
 
+  // public http: Http;
+  //
+  //   // console.log("uiip"+env.user);
+  //
+  // }
 }

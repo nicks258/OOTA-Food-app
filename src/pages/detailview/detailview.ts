@@ -15,6 +15,7 @@ import 'rxjs/add/operator/map';
 
 
 export class DetailviewPage {
+  menu: any;
   public sdata : any;
         name : any;
         cost : any;
@@ -127,7 +128,7 @@ presentActionSheet() {
     });
     actionSheet.present();
   }
-  
+
 restaurantandinfo(value){
    let loadingPopup = this.loadingCtrl.create({
       content: 'Loading Restaurants...',
