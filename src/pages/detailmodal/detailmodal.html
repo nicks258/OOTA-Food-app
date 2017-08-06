@@ -314,11 +314,12 @@
                </ion-item>
 
              </ion-card>
-
-
+             <!--menuDeatils[i]-->
+             <div *ngFor="let menu_items of menuDetails;let i =index"></div>
              <ion-card>
                <ion-card-header style="text-align: center; color:black">
-                 <h2>Header</h2>
+                 <!--{{book.data[0].isbn13}}-->
+                 <h2>{{menu_items.item[0].name}}</h2>
                </ion-card-header>
 
              </ion-card>

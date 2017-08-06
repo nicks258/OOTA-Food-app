@@ -20,6 +20,8 @@ export class DetailmodalPage {
   menuItems : any;
   bgcol: any;
   public value;
+  public menuDeatils: any;
+  public menuDeatilsLength: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public loadingCtrl: LoadingController,public http: Http) {
      this.value = navParams.get("value");
@@ -28,8 +30,10 @@ export class DetailmodalPage {
      this.mealdetails = this.details;
      this.restaurantInfo = navParams.get("current_detail");
      this.menuItems = navParams.get("menuItems");
+     this.menuDeatils  = navParams.get("menuDetailsToSend");
+     this.menuDeatilsLength = navParams.get("menuDetailsToSendLength");
      //this.fetchRestaurantInfo();
-     console.log("hot->"+JSON.stringify(this.menuItems));
+     console.log("menu items->"+JSON.stringify(this.menuDeatilsLength));
      console.log(this.rating);
      console.log(this.value);
      this.data.push({

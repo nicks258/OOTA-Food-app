@@ -24,9 +24,12 @@ export class DetailviewPage {
         rname : any;
         mylatitude : any;
         current_detail : any;
+        menuItemsLength : any;
         mylongitude : any;
         restaurantInfo : any;
         menuItems       : any;
+        menuDetailsToSend : any;
+        menuDetailsToSendLength : any;
         nextlength :  any;
   data: Array<{title: string, details: string, icon: string, bgcolor: string, showDetails: boolean, value: number}> = [];
   constructor(public navCtrl: NavController, public platform: Platform, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation,public http: Http) {
@@ -96,7 +99,9 @@ export class DetailviewPage {
             this.navCtrl.push(DetailmodalPage, {
             value: value,
             details : this.sdata,
-            current_detail : this.restaurantInfo
+            current_detail : this.restaurantInfo,
+            menuDetailsToSend : this.menuItems,
+            menuDetailsToSendLength : this.menuItemsLength
             });
 
             loadingPopup.dismiss();
@@ -165,6 +170,7 @@ fetchRestaurantInfo(){
             this.restaurantInfo = data.data.restaurant;
             this.nextlength = data.data.restaurant.length;
             this.menuItems = data.data.menu;
+            this.menuItemsLength = data.data.menu.length;
             console.log(this.restaurantInfo);
             loadingPopup.dismiss();
           }, 1000);
