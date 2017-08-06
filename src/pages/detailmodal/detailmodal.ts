@@ -60,31 +60,31 @@ export class DetailmodalPage {
   goto_preference(){
      this.navCtrl.push(PreferencePage);
   }
-  fetchRestaurantInfo(){
-    let loadingPopup = this.loadingCtrl.create({
-      content: 'Loading Restaurants...',
-      spinner: 'circles'
-    });
-    loadingPopup.present();
+  // fetchRestaurantInfo(){
+  //   let loadingPopup = this.loadingCtrl.create({
+  //     content: 'Loading Restaurants...',
+  //     spinner: 'circles'
+  //   });
+  //   loadingPopup.present();
 
 
-    this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
-      .map(res => res.json())
-      .subscribe(
-        data => {
-          // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
-          setTimeout(() => {
-            this.restaurantInfo = data.data.restaurant;
-            this.nextlength = data.data.restaurant.length;
-            console.log(this.restaurantInfo);
-            loadingPopup.dismiss();
-          }, 1000);
-        },
-        err => console.error(err)
-      );
+  //   this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
+  //     .map(res => res.json())
+  //     .subscribe(
+  //       data => {
+  //         // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
+  //         setTimeout(() => {
+  //           this.restaurantInfo = data.data.restaurant;
+  //           this.nextlength = data.data.restaurant.length;
+  //           console.log(this.restaurantInfo);
+  //           loadingPopup.dismiss();
+  //         }, 1000);
+  //       },
+  //       err => console.error(err)
+  //     );
 
 
 
 
-  }
+  // }
 }

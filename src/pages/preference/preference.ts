@@ -111,7 +111,6 @@ export class PreferencePage {
   checkedItems:boolean[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public http: Http) {
-
       let opt = "budget";
       this.current_option = opt;
       this.current_inneropt = "items."+opt;
@@ -119,7 +118,7 @@ export class PreferencePage {
 
   }
 
-
+  
 
   ionViewDidLoad() {
      console.log('ionViewDidLoad PreferencePage');
