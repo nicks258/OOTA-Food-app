@@ -37,7 +37,7 @@ export class LoginPage {
     let nav = this.navCtrl;
     let env = this;
     //the permissions your facebook app needs from the user
-    permissions = ["public_profile"];
+    permissions = ["public_profile", "email"];
 
     this.fb.login(permissions)
       .then(function(response){
