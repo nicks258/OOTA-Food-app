@@ -12,7 +12,7 @@ import { Http } from '@angular/http';
 export class DetailmodalPage {
   data: Array<{value: number}> = [];
   details : any;
-  restaurantInfo : any;
+  info : any;
   nextlength : any;
   detaildata : any;
   rating : any;
@@ -28,12 +28,7 @@ export class DetailmodalPage {
      this.details = navParams.get("details");
      this.rating = this.details.restaurant.rating;
      this.mealdetails = this.details;
-     this.restaurantInfo = navParams.get("current_detail");
-     this.menuItems = navParams.get("menuItems");
-     this.menuDeatils  = navParams.get("menuDetailsToSend");
-     this.menuDeatilsLength = navParams.get("menuDetailsToSendLength");
-     //this.fetchRestaurantInfo();
-     console.log("menu items->"+JSON.stringify(this.menuDeatilsLength));
+     this.info = navParams.get("current_detail");
      console.log(this.rating);
      console.log(this.value);
      this.data.push({
