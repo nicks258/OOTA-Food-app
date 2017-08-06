@@ -23,7 +23,7 @@ export class SearchPage {
          default : any;
          flag : number = 1;
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, public http: Http) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController,public navParams: NavParams, public http: Http) {
   	  this.initial_search();
   }
 
@@ -86,6 +86,29 @@ export class SearchPage {
 		        },
 		        err => console.error(err)
 		    );
+       }
+       else{
+          this.flag = 1;
+       }
+  }
+
+  goto_fetchsearch(search){
+          console.log(search);
+          let jlength;
+          if (search != ''){
+          this.flag = 0;
+          this.items = [{"item":{"name" : "Searching..."}}]
+          this.http.get('http://54.172.94.76:9000/api/v1/search/'+search+'?lat=37.40879&lng=-121.98857')
+          .map(res => res.json())
+          .subscribe(
+            data => {
+                this.items = data.data;
+                jlength = this.items.length;
+                if (jlength == 0)
+                  this.items = [{"item":{"name" : "No Data found. Try another keyword"}}]
+            },
+            err => console.error(err)
+        );
        }
        else{
           this.flag = 1;
