@@ -26,6 +26,8 @@ export class DetailviewPage {
         current_detail : any;
         mylongitude : any;
         restaurantInfo : any;
+        menuItems       : any;
+        nextlength :  any;
   data: Array<{title: string, details: string, icon: string, bgcolor: string, showDetails: boolean, value: number}> = [];
   constructor(public navCtrl: NavController, public platform: Platform, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation,public http: Http) {
       this.sdata = navParams.get('data_search');
@@ -112,7 +114,7 @@ export class DetailviewPage {
             });
       }
       console.log(value);
-      
+
   }
 
   ionViewDidLoad() {
@@ -148,7 +150,7 @@ presentActionSheet() {
 
 fetchRestaurantInfo(){
     let loadingPopup = this.loadingCtrl.create({
-      content: 'Loading Restaurants...',
+      content: 'Loading Restaurants details...',
       spinner: 'circles'
     });
     loadingPopup.present();
@@ -162,6 +164,7 @@ fetchRestaurantInfo(){
           setTimeout(() => {
             this.restaurantInfo = data.data.restaurant;
             this.nextlength = data.data.restaurant.length;
+            this.menuItems = data.data.menu;
             console.log(this.restaurantInfo);
             loadingPopup.dismiss();
           }, 1000);

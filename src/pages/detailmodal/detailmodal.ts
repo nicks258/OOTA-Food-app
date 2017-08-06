@@ -17,6 +17,7 @@ export class DetailmodalPage {
   detaildata : any;
   rating : any;
   mealdetails : any;
+  menuItems : any;
   bgcol: any;
   public value;
 
@@ -26,7 +27,9 @@ export class DetailmodalPage {
      this.rating = this.details.restaurant.rating;
      this.mealdetails = this.details;
      this.restaurantInfo = navParams.get("current_detail");
+     this.menuItems = navParams.get("menuItems");
      //this.fetchRestaurantInfo();
+     console.log("hot->"+JSON.stringify(this.menuItems));
      console.log(this.rating);
      console.log(this.value);
      this.data.push({
