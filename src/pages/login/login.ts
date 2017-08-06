@@ -4,6 +4,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { HomePage } from '../home/home';
 import { App  } from 'ionic-angular';
+import { Http } from '@angular/http';
 import { GooglePlus } from '@ionic-native/google-plus';
 @Component({
   selector: 'page-login',
@@ -14,8 +15,9 @@ export class LoginPage {
   user: any;
   userReady: boolean = false;
   FB_APP_ID: number = 125195224754920;
-  constructor(public app: App,public navCtrl: NavController,public fb: Facebook,public loadingCtrl: LoadingController, public nativeStorage: NativeStorage, public navParams: NavParams,
+  constructor(public app: App,public http: Http,public navCtrl: NavController,public fb: Facebook,public loadingCtrl: LoadingController, public nativeStorage: NativeStorage, public navParams: NavParams,
               public googlePlus: GooglePlus ) {
+
     this.fb.browserInit(this.FB_APP_ID, "v2.8");
   }
 
@@ -30,8 +32,7 @@ export class LoginPage {
     });
     loading.present();
 
-    let email1 : any;
-    let name1 : any;
+
     let permissions = new Array<string>();
     let nav = this.navCtrl;
     let env = this;
@@ -51,13 +52,15 @@ export class LoginPage {
             env.nativeStorage.setItem('user',
               {
                 name: user.name,
+                email: user.email,
                 gender: user.gender,
-                name1: user.name,
-                email1: user.email,
                 picture: user.picture
 
-              })
+              }
+              )
+
               .then(function(){
+                // console.log("sumit"+env.user.email);
                 setTimeout(() => {
                 loading.dismiss();
                 nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
@@ -87,7 +90,7 @@ export class LoginPage {
     //   }, error => {
     //     console.log("Oooops!");
     //   });
-    console.log("email ->" + email1 +"name->"+ name1);
+
   }
   doGoogleLogin(){
     let env = this;
@@ -148,4 +151,10 @@ export class LoginPage {
         console.log(error);
       });
   }
+
+
+
+
+
 }
+
