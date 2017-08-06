@@ -11,7 +11,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
 })
 export class LoginPage {
   rootPage: any ;
-
+  user: any;
+  userReady: boolean = false;
   FB_APP_ID: number = 125195224754920;
   constructor(public app: App,public navCtrl: NavController,public fb: Facebook,public loadingCtrl: LoadingController, public nativeStorage: NativeStorage, public navParams: NavParams,
               public googlePlus: GooglePlus ) {
@@ -132,5 +133,19 @@ export class LoginPage {
 
       });
   }
+  ionViewCanEnter(){
+    let env = this;
+    this.nativeStorage.getItem('user')
+      .then(function (data){
+        env.user = {
+          name: data.name,
+          gender: data.gender,
+          picture: data.picture
+        };
 
+        env.userReady = true;
+      }, function(error){
+        console.log(error);
+      });
+  }
 }

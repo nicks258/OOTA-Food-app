@@ -15,11 +15,13 @@ import 'rxjs/add/operator/map';
 
 
 export class DetailviewPage {
+  menu: any;
   public sdata : any;
         name : any;
         cost : any;
         dirurl : any;
         lat : any;
+        id  : any;
         long : any;
         rname : any;
         mylatitude : any;
@@ -35,9 +37,10 @@ export class DetailviewPage {
   data: Array<{title: string, details: string, icon: string, bgcolor: string, showDetails: boolean, value: number}> = [];
   constructor(public navCtrl: NavController, public platform: Platform, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation,public http: Http) {
       this.sdata = navParams.get('data_search');
-      console.log(this.sdata);
+      console.log("data"+this.sdata);
       this.sdata = JSON.parse(this.sdata);
       this.name = this.sdata.item.name;
+      this.id = this.sdata.item.restaurant_id;
       this.rname = this.sdata.restaurant.name;
       this.cost = this.sdata.item.cost;
       this.lat = this.sdata.lat_long[0];
@@ -124,14 +127,14 @@ presentActionSheet() {
     });
     actionSheet.present();
   }
-  
+
 restaurantandinfo(value){
    let loadingPopup = this.loadingCtrl.create({
       content: 'Loading Restaurants...',
       spinner: 'circles'
     });
     loadingPopup.present();
-       this.http.get('http://54.172.94.76:9000/api/v1/restaurants/76447')
+       this.http.get('http://54.172.94.76:9000/api/v1/restaurants/' + this.id)
       .map(res => res.json())
       .subscribe(
         data => {

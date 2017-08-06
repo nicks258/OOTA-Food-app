@@ -10,6 +10,7 @@ import { Http } from '@angular/http';
   templateUrl: 'detailmodal.html',
 })
 export class DetailmodalPage {
+  restaurantInfo: any;
   data: Array<{value: number}> = [];
   details : any;
   info : any;
