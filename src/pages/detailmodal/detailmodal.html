@@ -282,7 +282,6 @@
 
            </div>
            <div  class="review" *ngIf="d.value == 3">
-             <p>{{info.restaurant.name}} </p>
              <ion-card>
 
                <img src="assets/img/map_madison.png">
@@ -300,7 +299,6 @@
 
                <ion-item>
                  <ion-icon name="wine" item-left large ></ion-icon>
-                 <h2>{{info.restaurant.name}}</h2>
                  <p>{{info.restaurant.addressLane1}} {{info.restaurant.city}} {{info.restaurant.state}} </p>
                </ion-item>
 
@@ -314,15 +312,19 @@
                </ion-item>
 
              </ion-card>
-             <!--menuDeatils[i]-->
-             <div *ngFor="let menu_items of info.menu;let i =index">
-             <ion-card>
-               <ion-card-header style="text-align: center; color:black">
-                 <h2>{{info.menu[i].item.name}}</h2>
-               </ion-card-header>
+             <br>
+             <hr>
+             <b> Restaurant Menu </b>
+             <hr>
+             <ion-list style="background-color: #B9F496">
+                <button ion-item *ngFor="let menu_items of info.menu;let i =index" style="background-color: #B9F496">
+                  {{info.menu[i].item.name}}
+                </button>  
+              </ion-list>
 
-             </ion-card>
-             </div>
+
+            
+
 
            </div>
            <div class="review" *ngIf="d.value == 4">
