@@ -37,7 +37,7 @@
            <!--  <div *ngFor="let iteminfo of info;let i = index">
                 {{iteminfo}}
             </div> -->
-         
+
                <ion-row>
                   <ion-col col-6 style="border-right: solid 1px black">
                        <b>Health Benefits</b>
@@ -130,165 +130,112 @@
                <!--</ion-list>-->
              <!--</ion-card-content>-->
 
-             <!--<ion-content>-->
-               <ion-row>
-                   <ion-col col-4 style="text-align: center; color:black">
-                       <h2> 4.3 <ion-icon name="star"></ion-icon> </h2>
-                       Meal Rating
-                   </ion-col>
-                   <ion-col col-4 style="text-align: center; color:black">
-                        <h2> 3.5 <ion-icon name="star"></ion-icon> </h2>
-                        Restaurant Rating
-                   </ion-col>
-                   <ion-col col-4 style="text-align: center; color:black">
-                        <h2> 71 <ion-icon name="list-box"></ion-icon> </h2>
-                        Reviews
-                   </ion-col>
-               </ion-row>
+      <!--<ion-content>-->
 
-               <hr>
+      <ion-row>
+        <ion-col col-4 style="text-align: center; color:black">
+          <h2> 4.3 <ion-icon name="star"></ion-icon> </h2>
+          Meal Rating
+        </ion-col>
+        <ion-col col-4 style="text-align: center; color:black">
+          <h2> 3.5 <ion-icon name="star"></ion-icon> </h2>
+          Restaurant Rating
+        </ion-col>
+        <ion-col col-4 style="text-align: center; color:black">
+          <h2> 71 <ion-icon name="list-box"></ion-icon> </h2>
+          Reviews
+        </ion-col>
+      </ion-row>
+
+      <hr>
 
 
-               <ion-list no-lines>
-                   <ion-item style="background-color: #DEF9D6" text-wrap>
-
-                     <ion-avatar item-left>
-                       <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png">
-                     </ion-avatar>
-                     <h2>Test review</h2>
-                     <h4 > <font color="grey">10 days ago</font></h4>
-                     <p style="padding-top:10px">"Its really awesome place to visit with familyIts really awesome place to visit with familyIts really awesome place to visit with familyIts really awesome place to visit with family"</p>
-                     <ion-icon secondary name="happy"></ion-icon>
-                     <br><br>
-                     <button ion-button color="#fff" >
-                       <ion-icon ios="ios-thumbs-up" md="md-thumbs-up"  class="direction dirct0" ></ion-icon><span>
+        <ion-list no-lines>
+          <div *ngFor="let review of reviewInfo;let i =index">
+          <ion-item style="background-color: #DEF9D6" text-wrap>
+            {{review[i].author_name}}
+            <ion-avatar item-left>
+              <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png">
+            </ion-avatar>
+            <h2>{{review[i].author_name}}</h2>
+            <h4 > <font color="grey">10 days ago</font></h4>
+            <p style="padding-top:10px">{{review[i].text}}</p>
+            <ion-icon secondary name="happy"></ion-icon>
+            <br><br>
+            <button ion-button color="#fff" >
+              <ion-icon ios="ios-thumbs-up" md="md-thumbs-up"  class="direction dirct0" ></ion-icon><span>
                         <p  padding-left="20sp"><font color="white">Helpful </font></p> </span>
-                     </button>
+            </button>
 
-                   </ion-item>
-                <hr>
-                 <ion-item style="background-color: #DEF9D6" text-wrap>
+          </ion-item>
+          <hr>
 
-                   <ion-avatar item-left>
-                     <img src="https://developers.google.com/webmasters/mobile-sites/imgs/mobile-user.png">
-                   </ion-avatar>
-
-                   <h2>Average</h2>
-                   <h4 > <font color="grey">12 days ago</font></h4>
-                   <p style="padding-top:10px">"Good For Weekends Outing. Normal serviceGood For Weekends Outing. Normal serviceGood For Weekends Outing. Normal service"</p>
-
-                   <ion-icon danger name="sad"></ion-icon>
-                   <br><br>
-                   <button ion-button color="#fff" >
-                     <ion-icon ios="ios-thumbs-up" md="md-thumbs-up"  class="direction dirct0" ></ion-icon><span>
-                        <p  padding-left="20sp"><font color="white">Helpful </font></p> </span>
-                   </button>
-
-                 </ion-item>
-
-                 <hr>
-                 <ion-item style="background-color: #DEF9D6" text-wrap>
-
-                   <ion-avatar item-left>
-                     <img src="https://images.onlinelabels.com/images/clip-art/dagobert83/dagobert83_female_user_icon.png">
-                   </ion-avatar>
-
-                   <h2>Wow!!!</h2>
-                   <h4 > <font color="grey">20 days ago</font></h4>
-                   <p style="padding-top:10px">"Good For team lunch!! Service is awesomeGood For team lunch!! Service is awesomeGood For team lunch!! Service is awesome"</p>
-
-                   <ion-icon secondary name="happy"></ion-icon>
-                   <br><br>
-                   <button ion-button color="#fff" >
-                     <ion-icon ios="ios-thumbs-up" md="md-thumbs-up"  class="direction dirct0" ></ion-icon><span>
-                       <p  padding-left="20sp"><font color="white">Helpful </font></p> </span>
-                   </button>
-
-                 </ion-item>
-
-                 <hr>
-                 <ion-item style="background-color: #DEF9D6" text-wrap>
-
-                   <ion-avatar item-left>
-                     <img src="https://thumbs.dreamstime.com/x/user-icon-9233164.jpg">
-                   </ion-avatar>
-
-                   <h2>Poor Service!!</h2>
-                   <h4 > <font color="grey">20 days ago</font></h4>
-                   <p style="padding-top:10px">"Food is really costly and quality is poorFood is really costly and quality is poorFood is really costly and quality is poor"</p>
-
-                   <ion-icon danger name="sad"></ion-icon>
-                   <br><br>
-                   <button ion-button color="#fff" >
-                     <ion-icon ios="ios-thumbs-up" md="md-thumbs-up"  class="direction dirct0" ></ion-icon><span>
-                       <p  padding-left="20sp"><font color="white">Helpful </font></p> </span>
-                   </button>
-
-                 </ion-item>
-               </ion-list>
-             <hr>
-             <!--</ion-content>-->
-
-               <!--<ion-row>-->
-                 <!--<ion-col col-6 style="border-right: solid 1px black">-->
-                   <!--Health-->
-                   <!--<p>One</p>-->
-                   <!--<p>One</p>-->
-                   <!--<p>One</p>-->
-                   <!--<p>One</p>-->
-                   <!--<p>One</p>-->
-                   <!--<p>One</p>-->
-                 <!--</ion-col>-->
-                 <!--<ion-col col-6>-->
-                   <!--Nutrition-->
-                   <!--<ion-row padding>-->
-                     <!--<ion-col col-6>-->
-                       <!--one-->
-                     <!--</ion-col>-->
-                     <!--<ion-col col-6>-->
-                       <!--15 %-->
-                     <!--</ion-col>-->
-
-                     <!--<ion-col col-6>-->
-                       <!--one-->
-                     <!--</ion-col>-->
-                     <!--<ion-col col-6>-->
-                       <!--15 %-->
-                     <!--</ion-col>-->
-
-                     <!--<ion-col col-6>-->
-                       <!--one-->
-                     <!--</ion-col>-->
-                     <!--<ion-col col-6>-->
-                       <!--15 %-->
-                     <!--</ion-col>-->
-
-
-                     <!--<ion-col col-6>-->
-                       <!--one-->
-                     <!--</ion-col>-->
-                     <!--<ion-col col-6>-->
-                       <!--15 %-->
-                     <!--</ion-col>-->
-
-                     <!--<ion-col col-6>-->
-                       <!--one-->
-                     <!--</ion-col>-->
-                     <!--<ion-col col-6>-->
-                       <!--15 %-->
-                     <!--</ion-col>-->
-                   <!--</ion-row>-->
-                 <!--</ion-col>-->
-               <!--</ion-row>-->
-               <!--<br>-->
-               <!--Inggreyients-->
-               <!--<p>-->
-                 <!--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum-->
-               <!--</p>-->
-
+      </div>
+        </ion-list>
            </div>
-           <div  class="review" *ngIf="d.value == 3">
-             <ion-card>
+          <!--<ion-item style="background-color: #DEF9D6" text-wrap>-->
+
+          <!--<ion-avatar item-left>-->
+          <!--<img src="https://developers.google.com/webmasters/mobile-sites/imgs/mobile-user.png">-->
+          <!--</ion-avatar>-->
+
+          <!--<h2>Average</h2>-->
+          <!--<h4 > <font color="grey">12 days ago</font></h4>-->
+          <!--<p style="padding-top:10px">"Good For Weekends Outing. Normal serviceGood For Weekends Outing. Normal serviceGood For Weekends Outing. Normal service"</p>-->
+
+          <!--<ion-icon danger name="sad"></ion-icon>-->
+          <!--<br><br>-->
+          <!--<button ion-button color="#fff" >-->
+          <!--<ion-icon ios="ios-thumbs-up" md="md-thumbs-up"  class="direction dirct0" ></ion-icon><span>-->
+          <!--<p  padding-left="20sp"><font color="white">Helpful </font></p> </span>-->
+          <!--</button>-->
+
+          <!--</ion-item>-->
+
+          <!--<hr>-->
+          <!--<ion-item style="background-color: #DEF9D6" text-wrap>-->
+
+          <!--<ion-avatar item-left>-->
+          <!--<img src="https://images.onlinelabels.com/images/clip-art/dagobert83/dagobert83_female_user_icon.png">-->
+          <!--</ion-avatar>-->
+
+          <!--<h2>Wow!!!</h2>-->
+          <!--<h4 > <font color="grey">20 days ago</font></h4>-->
+          <!--<p style="padding-top:10px">"Good For team lunch!! Service is awesomeGood For team lunch!! Service is awesomeGood For team lunch!! Service is awesome"</p>-->
+
+          <!--<ion-icon secondary name="happy"></ion-icon>-->
+          <!--<br><br>-->
+          <!--<button ion-button color="#fff" >-->
+          <!--<ion-icon ios="ios-thumbs-up" md="md-thumbs-up"  class="direction dirct0" ></ion-icon><span>-->
+          <!--<p  padding-left="20sp"><font color="white">Helpful </font></p> </span>-->
+          <!--</button>-->
+
+          <!--</ion-item>-->
+
+          <!--<hr>-->
+          <!--<ion-item style="background-color: #DEF9D6" text-wrap>-->
+
+          <!--<ion-avatar item-left>-->
+          <!--<img src="https://thumbs.dreamstime.com/x/user-icon-9233164.jpg">-->
+          <!--</ion-avatar>-->
+
+          <!--<h2>Poor Service!!</h2>-->
+          <!--<h4 > <font color="grey">20 days ago</font></h4>-->
+          <!--<p style="padding-top:10px">"Food is really costly and quality is poorFood is really costly and quality is poorFood is really costly and quality is poor"</p>-->
+
+          <!--<ion-icon danger name="sad"></ion-icon>-->
+          <!--<br><br>-->
+          <!--<button ion-button color="#fff" >-->
+          <!--<ion-icon ios="ios-thumbs-up" md="md-thumbs-up"  class="direction dirct0" ></ion-icon><span>-->
+          <!--<p  padding-left="20sp"><font color="white">Helpful </font></p> </span>-->
+          <!--</button>-->
+
+          <!--</ion-item>-->
+          <!--</ion-list>-->
+          <!--<hr>-->
+
+    <div  class="review" *ngIf="d.value == 3">
+      <ion-card>
 
                <img src="assets/img/map_madison.png">
                <ion-fab right top>
@@ -325,11 +272,11 @@
              <ion-list style="background-color: #B9F496">
                 <button ion-item *ngFor="let menu_items of info.menu;let i =index" style="background-color: #B9F496">
                   {{info.menu[i].item.name}}
-                </button>  
+                </button>
               </ion-list>
 
 
-            
+
 
 
            </div>

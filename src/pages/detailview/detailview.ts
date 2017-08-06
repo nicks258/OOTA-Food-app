@@ -24,6 +24,7 @@ export class DetailviewPage {
         long : any;
         rname : any;
         mylatitude : any;
+  review : any;
         current_detail : any;
         menuItemsLength : any;
         mylongitude : any;
@@ -85,6 +86,10 @@ export class DetailviewPage {
       }
       else if (value == 1){
          this.mealdetail(value);
+      }
+      else if (value ==2)
+      {
+        this.getReview(value);
       }
       else
       {
@@ -160,6 +165,33 @@ restaurantandinfo(value){
         err => console.error(err)
       );
 }
+  getReview(value){
+    let loadingPopup = this.loadingCtrl.create({
+      content: 'Loading Restaurants...',
+      spinner: 'circles'
+    });
+    loadingPopup.present();
+    let id = this.sdata.item.restaurant_id;
+    console.log(id);
+    this.http.get('http://54.172.94.76:9000/api/v1/restaurant_reviews/'+id)
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
+          setTimeout(() => {
+            this.review = data.data;
+
+            this.navCtrl.push(DetailmodalPage, {
+              reviewDeatils : this.review
+
+            });
+
+            loadingPopup.dismiss();
+          }, 1000);
+        },
+        err => console.error(err)
+      );
+  }
 
 mealdetail(value){
    let loadingPopup = this.loadingCtrl.create({
