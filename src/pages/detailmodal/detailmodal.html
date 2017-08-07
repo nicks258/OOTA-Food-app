@@ -151,7 +151,7 @@
 
 
         <ion-list no-lines>
-          <div *ngFor="let review of info">
+          <div *ngFor="let review of review">
           <ion-item style="background-color: #DEF9D6" text-wrap>
             {{review.author_name}}
             <ion-avatar item-left>
@@ -159,7 +159,7 @@
             </ion-avatar>
             <h2>{{review}}</h2>
             <h4 > <font color="grey">10 days ago</font></h4>
-            <p style="padding-top:10px">{{review}}</p>
+            <p style="padding-top:10px">{{review.text}}</p>
             <ion-icon secondary name="happy"></ion-icon>
             <br><br>
             <button ion-button color="#fff" >

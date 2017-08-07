@@ -26,11 +26,13 @@ export class DetailmodalPage {
   public menuDeatilsLength: any;
   public len : any;
   public mealinfoarraydesc : any = [];
+  public review : any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController,public loadingCtrl: LoadingController,public http: Http) {
      this.value = navParams.get("value");
      this.details = navParams.get("details");
     //this.reviewInfo = navParams.get("reviewDeatils");
     this.info = navParams.get("current_detail");
+
     console.log(JSON.stringify(this.info));
     // this.rating = this.details.restaurant.rating;
     //  this.mealdetails = this.details;
@@ -41,10 +43,12 @@ export class DetailmodalPage {
      // console.log(this.len);
 
     //console.log("here->" + JSON.stringify(this.reviewInfo));
+    if (this.info.length != undefined){
      for(let i=0;i<this.len;i++)
      {
              this.mealinfoarraydesc.push(this.info[i].item);
      }
+   }
 
      console.log(this.len);
      this.data.push({
@@ -57,6 +61,14 @@ export class DetailmodalPage {
      }
      else if(this.value == 2){
           this.bgcol = "#DEF9D6";
+          if (this.info.length == undefined){
+            console.log("Review checked");
+            this.review=[{"author_name":"No Data Found","text":"" }];
+          }
+          else{
+             this.review = this.info;
+          }
+          
      }
      else if(this.value == 3){
           this.bgcol = "#B9F496";
