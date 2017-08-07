@@ -130,7 +130,7 @@ export class LoginPage {
       }, function (error) {
         setTimeout(() => {
             loading.dismiss();
-            //nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+            nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
             console.log(error);
          }, 1000);
 

@@ -24,7 +24,7 @@ export class DetailviewPage {
         long : any;
         rname : any;
         mylatitude : any;
-  review : any;
+        review : any;
         current_detail : any;
         menuItemsLength : any;
         mylongitude : any;
@@ -152,7 +152,7 @@ restaurantandinfo(value){
             this.restaurantInfo = data.data.restaurant;
             this.menu =  data.data.menu;
             this.nextlength = data.data.restaurant.length;
-            console.log(this.restaurantInfo);
+            console.log(this.info);
             this.navCtrl.push(DetailmodalPage, {
             value: value,
             details : this.sdata,
@@ -180,10 +180,12 @@ restaurantandinfo(value){
           // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
           setTimeout(() => {
             this.review = data.data;
-
+            console.log(this.review);
             this.navCtrl.push(DetailmodalPage, {
-              reviewDeatils : this.review
-
+              //reviewDeatils : this.review
+              value: value,
+              details : this.sdata,
+              current_detail : this.review
             });
 
             loadingPopup.dismiss();

@@ -151,15 +151,15 @@
 
 
         <ion-list no-lines>
-          <div *ngFor="let review of reviewInfo;let i =index">
+          <div *ngFor="let review of info">
           <ion-item style="background-color: #DEF9D6" text-wrap>
-            {{review[i].author_name}}
+            {{review.author_name}}
             <ion-avatar item-left>
               <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/17241-200.png">
             </ion-avatar>
-            <h2>{{review[i].author_name}}</h2>
+            <h2>{{review}}</h2>
             <h4 > <font color="grey">10 days ago</font></h4>
-            <p style="padding-top:10px">{{review[i].text}}</p>
+            <p style="padding-top:10px">{{review}}</p>
             <ion-icon secondary name="happy"></ion-icon>
             <br><br>
             <button ion-button color="#fff" >
