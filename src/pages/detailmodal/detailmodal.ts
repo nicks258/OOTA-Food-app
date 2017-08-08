@@ -33,7 +33,7 @@ export class DetailmodalPage {
      this.details = navParams.get("details");
     //this.reviewInfo = navParams.get("reviewDeatils");
     this.info = navParams.get("current_detail");
-
+    console.log(this.info);
     // this.rating = this.details.restaurant.rating;
     //  this.mealdetails = this.details;
      // console.log(this.rating);
