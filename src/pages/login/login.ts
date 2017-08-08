@@ -61,9 +61,9 @@ export class LoginPage {
 
               .then(function(){
                 // console.log("sumit"+env.user.email);
+                nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
                 setTimeout(() => {
                 loading.dismiss();
-                nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
                 }, 1000);
               }, function (error) {
                  setTimeout(() => {
@@ -116,21 +116,21 @@ export class LoginPage {
           picture: user.imageUrl
         })
           .then(function(){
+            nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
             setTimeout(() => {
              loading.dismiss();
-            nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
           }, 1000);
           }, function (error) {
+            loading.dismiss();
              setTimeout(() => {
-              loading.dismiss();
               //nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
               console.log(error);
              }, 1000);
           })
       }, function (error) {
+         loading.dismiss();
         setTimeout(() => {
-            loading.dismiss();
-            nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
+            //nav.setRoot(HomePage, {}, {animate: true, direction: 'forward'});
             console.log(error);
          }, 1000);
 
