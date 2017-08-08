@@ -109,12 +109,15 @@ export class PreferencePage {
   elem : any;
   selectedItems=new Array();
   checkedItems:boolean[];
+  savedpreferences : any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public http: Http) {
       let opt = "budget";
       this.current_option = opt;
       this.current_inneropt = "items."+opt;
       this.option_val = 1;
+      this.email = "suvojitraj.kar@facebook.com";
+      this.getcurrentpreference(this.email);
 
   }
 
@@ -166,6 +169,34 @@ export class PreferencePage {
 
 
   }
+ 
+
+ getcurrentpreference(emailid){
+       this.http.get('http://54.172.94.76:9000/api/v1/customers/preferences/'+emailid)
+       .map(res => res.json())
+       .subscribe(
+       data => {
+            this.savedpreferences = data.data;
+            if (this.savedpreferences.budget.breakfast.length > 0){
+                  this.selectedItems.push("items.budget.breakfast-"+this.savedpreferences.budget.breakfast[0]);
+                  this.check_saved("items.budget.breakfast-",this.savedpreferences.budget.breakfast[0]);
+                }
+            if (this.savedpreferences.budget.lunch.length > 0){
+                  this.selectedItems.push("items.budget.lunch-"+this.savedpreferences.budget.lunch[0]);
+                  this.check_saved("items.budget.lunch-",this.savedpreferences.budget.lunch[0]);
+                }
+            if (this.savedpreferences.budget.dinner.length > 0){
+                  this.selectedItems.push("items.budget.dinner-"+this.savedpreferences.budget.dinner[0]);
+                  this.check_saved("items.budget.dinner-",this.savedpreferences.budget.dinner[0]);
+                }
+
+            console.log(this.selectedItems);
+            console.log(JSON.stringify(this.savedpreferences));
+},
+err => console.error(err)
+);
+ }
+
 
   check_saved(a,b){
      let option = a+b;
@@ -210,28 +241,8 @@ export class PreferencePage {
 }
 
   applypreference(){
-     this.applyjson =  {
-  "budget": {
-    "breakfast": [],
-    "lunch": [],
-    "dinner": []
-  },
-  "distance": [],
-  "calorie": {
-    "breakfast": [],
-    "lunch": [],
-    "dinner": []
-  },
-  "calorie_bld": 0,
-  "meal_time": {
-    "breakfast": [],
-    "lunch": [],
-    "dinner": []
-  },
-  "cuisine": [],
-  "food_type": [],
-  "fast_food": []
-};
+     this.applyjson =  this.savedpreferences;
+
      let j, k, initial_id, choosen_id;
      for(j=0;j< this.selectedItems.length; j++){
         let postpref='this.applyjson', check_presence=0;
@@ -259,7 +270,7 @@ export class PreferencePage {
        console.log(this.applyjson);
        this.presentAlert(JSON.stringify(this.applyjson));
     let link = 'http://54.172.94.76:9000/api/v1/customers/preferences';
-    let data =  {"email":"mehrasumit258@gmail.com","preferences":JSON.stringify(this.applyjson)};
+    let data =  {"email":"suvojitraj.kar@facebook.com","preferences":JSON.stringify(this.applyjson)};
     console.log("data to send" + JSON.stringify(data));
     this.http.post(link, data)
       .subscribe(data => {
@@ -299,6 +310,28 @@ export class PreferencePage {
       console.log(this.selectedItems);
    }
    clearall(){
+     this.savedpreferences =    {
+  "budget": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "distance": [],
+  "calorie": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "calorie_bld": 0,
+  "meal_time": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "cuisine": [],
+  "food_type": [],
+  "fast_food": []
+};
       this.selectedItems=new Array();
    }
 }
