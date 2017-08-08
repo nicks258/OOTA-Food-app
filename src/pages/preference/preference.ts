@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { Http } from '@angular/http';
+import { LoadingController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -109,12 +110,16 @@ export class PreferencePage {
   elem : any;
   selectedItems=new Array();
   checkedItems:boolean[];
+  savedpreferences : any;
+  email : any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,public http: Http) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, private alertCtrl: AlertController,public http: Http) {
       let opt = "budget";
       this.current_option = opt;
       this.current_inneropt = "items."+opt;
       this.option_val = 1;
+      this.email = "suvojitraj.kar@facebook.com";
+      this.getcurrentpreference(this.email);
 
   }
 
@@ -166,6 +171,110 @@ export class PreferencePage {
 
 
   }
+ 
+
+ getcurrentpreference(emailid){
+
+  let loadingPopup = this.loadingCtrl.create({
+      content: 'Loading your preferences...',
+      spinner: 'circles'
+    });
+    loadingPopup.present();
+
+       this.http.get('http://54.172.94.76:9000/api/v1/customers/preferences/'+emailid)
+       .map(res => res.json())
+       .subscribe(
+       data => {
+          setTimeout(() => {
+            this.savedpreferences = data.data;
+            //budget
+            if (this.savedpreferences.budget.breakfast.length > 0){
+                  this.selectedItems.push("items.budget.breakfast-"+this.savedpreferences.budget.breakfast[0]);
+                  this.check_saved("items.budget.breakfast-",this.savedpreferences.budget.breakfast[0]);
+                }
+            if (this.savedpreferences.budget.lunch.length > 0){
+                  this.selectedItems.push("items.budget.lunch-"+this.savedpreferences.budget.lunch[0]);
+                  this.check_saved("items.budget.lunch-",this.savedpreferences.budget.lunch[0]);
+                }
+            if (this.savedpreferences.budget.dinner.length > 0){
+                  this.selectedItems.push("items.budget.dinner-"+this.savedpreferences.budget.dinner[0]);
+                  this.check_saved("items.budget.dinner-",this.savedpreferences.budget.dinner[0]);
+                }
+            //distance
+            if (this.savedpreferences.distance.length>0){
+               this.selectedItems.push("items.distance-"+this.savedpreferences.distance[0]);
+                  this.check_saved("items.distance-",this.savedpreferences.distance[0]);
+            }
+            //calorie
+            if (this.savedpreferences.calorie.breakfast.length > 0){
+                  this.selectedItems.push("items.calorie.breakfast-"+this.savedpreferences.calorie.breakfast[0]);
+                  this.check_saved("items.calorie.breakfast-",this.savedpreferences.calorie.breakfast[0]);
+                }
+            if (this.savedpreferences.calorie.lunch.length > 0){
+                  this.selectedItems.push("items.calorie.lunch-"+this.savedpreferences.calorie.lunch[0]);
+                  this.check_saved("items.calorie.lunch-",this.savedpreferences.calorie.lunch[0]);
+                }
+            if (this.savedpreferences.calorie.dinner.length > 0){
+                  this.selectedItems.push("items.calorie.dinner-"+this.savedpreferences.calorie.dinner[0]);
+                  this.check_saved("items.calorie.dinner-",this.savedpreferences.calorie.dinner[0]);
+                }
+
+            //calorie_bld
+            if(this.savedpreferences.calorie_bld != 0 ){
+                this.selectedItems.push("items.calorie_bld-"+this.savedpreferences.calorie_bld);
+                this.check_saved("items.calorie_bld-",this.savedpreferences.calorie.calorie_bld);
+                
+            }
+            
+            //meal
+            if (this.savedpreferences.meal_time.breakfast.length > 0){
+                  this.selectedItems.push("items.meal_time.breakfast-"+this.savedpreferences.meal_time.breakfast[0]);
+                  this.check_saved("items.meal_time.breakfast-",this.savedpreferences.meal_time.breakfast[0]);
+                }
+            if (this.savedpreferences.meal_time.lunch.length > 0){
+                  this.selectedItems.push("items.meal_time.lunch-"+this.savedpreferences.meal_time.lunch[0]);
+                  this.check_saved("items.meal_time.lunch-",this.savedpreferences.meal_time.lunch[0]);
+                }
+            if (this.savedpreferences.meal_time.dinner.length > 0){
+                  this.selectedItems.push("items.meal_time.dinner-"+this.savedpreferences.meal_time.dinner[0]);
+                  this.check_saved("items.meal_time.dinner-",this.savedpreferences.meal_time.dinner[0]);
+                }
+             //cuisine
+             if(this.savedpreferences.cuisine.length>0){
+                for (let i=0;i<this.savedpreferences.cuisine.length;i++){
+                   this.selectedItems.push("items.cuisine-"+this.savedpreferences.cuisine[i]);
+                   this.check_saved("items.cuisine-",this.savedpreferences.cuisine[i]);
+               
+                }
+             }
+
+              //foodtype
+               if(this.savedpreferences.food_type.length>0){
+                for (let i=0;i<this.savedpreferences.food_type.length;i++){
+                   this.selectedItems.push("items.food_type-"+this.savedpreferences.food_type[i]);
+                   this.check_saved("items.food_type-",this.savedpreferences.food_type[i]);
+               
+                }
+             }
+            
+            //fastfood
+             if(this.savedpreferences.fast_food.length>0){
+                for (let i=0;i<this.savedpreferences.fast_food.length;i++){
+                   this.selectedItems.push("items.fast_food-"+this.savedpreferences.fast_food[i]);
+                   this.check_saved("items.fast_food-",this.savedpreferences.fast_food[i]);
+               
+                }
+             }
+           loadingPopup.dismiss();
+         }, 1000);
+
+            console.log(this.selectedItems);
+            console.log(JSON.stringify(this.savedpreferences));
+},
+err => console.error(err)
+);
+ }
+
 
   check_saved(a,b){
      let option = a+b;
@@ -210,28 +319,8 @@ export class PreferencePage {
 }
 
   applypreference(){
-     this.applyjson =  {
-  "budget": {
-    "breakfast": [],
-    "lunch": [],
-    "dinner": []
-  },
-  "distance": [],
-  "calorie": {
-    "breakfast": [],
-    "lunch": [],
-    "dinner": []
-  },
-  "calorie_bld": 0,
-  "meal_time": {
-    "breakfast": [],
-    "lunch": [],
-    "dinner": []
-  },
-  "cuisine": [],
-  "food_type": [],
-  "fast_food": []
-};
+     this.applyjson =  this.savedpreferences;
+
      let j, k, initial_id, choosen_id;
      for(j=0;j< this.selectedItems.length; j++){
         let postpref='this.applyjson', check_presence=0;
@@ -257,9 +346,10 @@ export class PreferencePage {
          }
       }
        console.log(this.applyjson);
-       this.presentAlert(JSON.stringify(this.applyjson));
+       //this.presentAlert(JSON.stringify(this.applyjson));
+       this.presentAlert("Your preferences are saved successfully!");
     let link = 'http://54.172.94.76:9000/api/v1/customers/preferences';
-    let data =  {"email":"mehrasumit258@gmail.com","preferences":JSON.stringify(this.applyjson)};
+    let data =  {"email":"suvojitraj.kar@facebook.com","preferences":JSON.stringify(this.applyjson)};
     console.log("data to send" + JSON.stringify(data));
     this.http.post(link, data)
       .subscribe(data => {
@@ -299,6 +389,28 @@ export class PreferencePage {
       console.log(this.selectedItems);
    }
    clearall(){
+     this.savedpreferences =    {
+  "budget": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "distance": [],
+  "calorie": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "calorie_bld": 0,
+  "meal_time": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "cuisine": [],
+  "food_type": [],
+  "fast_food": []
+};
       this.selectedItems=new Array();
    }
 }

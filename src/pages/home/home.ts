@@ -36,17 +36,40 @@ export class HomePage {
           email: data.email
         };
         console.log(env.user);
-        let link = 'http://54.172.94.76:9000/api/v1/customers';
-        console.log("lol"+env.user.email + "hus" + env.user.name);
-        http.post(link, {"firstName":env.user.name,"email":env.user.email})
-          .subscribe(data => {
-            console.log("lol"+env.user.email);
-          }, error => {
-            console.log("Oooops!");
-          });
+      
+     // this will give user pref. If error means user is very very 1st time installing app 
+     //and is not registerd.... so register him
+      this.http.get('http://54.172.94.76:9000/api/v1/customers/preferences/suvojitraj.kar@facebook.com')
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          console.log('userpref');
+          console.log(data);
+          if(data.status == "FAILED"){
+            //Register block here
+            //then nav.setRoot(pref, {}, {animate: true, direction: 'forward'});
+          }
+        },
+        err => console.error(err)
+      );
+
+
+  //registration block
+        // let link = 'http://54.172.94.76:9000/api/v1/customers';
+        // console.log("lol"+env.user.email + "hus" + env.user.name);
+        // http.post(link, {"firstName":env.user.name,"email":env.user.email})
+        //   .subscribe(data => {
+        //     console.log("lol"+env.user.email);
+        //   }, error => {
+        //     console.log("Oooops!");
+        //   });
+
+
+
+
         env.userReady = true;
       }, function(error){
-        console.log(error);
+        console.log("not available in browser");
       });
     this.mylatitude = 37.40879;
     this.mylongitude = -121.98857;
