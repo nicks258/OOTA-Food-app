@@ -16,6 +16,7 @@ export class DetailmodalPage {
   info : any;
   nextlength : any;
   detaildata : any;
+  url : any;
   rating : any;
   mealdetails : any;
   menuItems : any;
@@ -31,7 +32,7 @@ export class DetailmodalPage {
      this.details = navParams.get("details");
     //this.reviewInfo = navParams.get("reviewDeatils");
     this.info = navParams.get("current_detail");
-    console.log(JSON.stringify(this.info));
+    console.log(JSON.stringify(this.details));
     // this.rating = this.details.restaurant.rating;
     //  this.mealdetails = this.details;
      // console.log(this.rating);
@@ -71,7 +72,15 @@ export class DetailmodalPage {
     document.getElementById("ioncontent").style.backgroundColor = this.bgcol ;
   }
 
-
+  // direct(){
+  //   // this.url = "http://maps.google.com/maps?saddr="+this.mylatitude+","+this.mylongitude+"&daddr="+x+","+y;
+  //   // this.url = "https://www.google.com/maps/preview/@"+x+"," +y+",8z";
+  //   this.dirurl = "http://maps.google.com/maps/?q="+this.lat+"," + this.long;
+  //
+  //   // this.url = "http://maps.google.com/maps/?q="+x+"," + y;
+  //   console.log(this.lat+","+this.long);
+  //   window.location.href = this.dirurl;
+  // }
   goto_preference(){
      this.navCtrl.push(PreferencePage);
   }
@@ -102,4 +111,13 @@ export class DetailmodalPage {
 
 
   // }
+  direct(x,y){
+    // this.url = "http://maps.google.com/maps?saddr="+this.mylatitude+","+this.mylongitude+"&daddr="+x+","+y;
+    // this.url = "https://www.google.com/maps/preview/@"+x+"," +y+",8z";
+    this.url = "http://maps.google.com/maps/?q="+x+"," + y;
+
+    // this.url = "http://maps.google.com/maps/?q="+x+"," + y;
+    console.log(x,y);
+    window.location.href = this.url;
+  }
 }

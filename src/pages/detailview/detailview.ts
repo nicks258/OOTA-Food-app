@@ -46,7 +46,8 @@ export class DetailviewPage {
       this.long = this.sdata.lat_long[1];
       this.mylatitude = navParams.get('latitude');
       this.mylongitude = navParams.get('longitude');
-      this.dirurl = "http://maps.google.com/maps?saddr="+this.mylatitude+","+this.mylongitude+"&daddr="+this.lat+","+this.long;
+      console.log("Lat->" + this.lat + " " + this.long);
+      // this.dirurl = "http://maps.google.com/maps?saddr="+this.mylatitude+","+this.mylongitude+"&daddr="+this.lat+","+this.long;
 
       this.data.push({
           title: 'Meal details and info',
@@ -132,6 +133,15 @@ presentActionSheet() {
       ]
     });
     actionSheet.present();
+  }
+  direct(){
+    // this.url = "http://maps.google.com/maps?saddr="+this.mylatitude+","+this.mylongitude+"&daddr="+x+","+y;
+    // this.url = "https://www.google.com/maps/preview/@"+x+"," +y+",8z";
+    this.dirurl = "http://maps.google.com/maps/?q="+this.lat+"," + this.long;
+
+    // this.url = "http://maps.google.com/maps/?q="+x+"," + y;
+    console.log(this.lat+","+this.long);
+    window.location.href = this.dirurl;
   }
 
 restaurantandinfo(value){

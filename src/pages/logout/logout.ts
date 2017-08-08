@@ -18,7 +18,7 @@ import {NativeStorage} from "@ionic-native/native-storage";
 export class LogoutPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public googlePlus: GooglePlus,public nativeStorage: NativeStorage) {
-    let nav = this.navCtrl;
+    // let nav = this.navCtrl;
     let env = this;
     env.nativeStorage.remove('user');
     this.navCtrl.setRoot(LoginPage, {}, {animate: true, direction: 'forward'});
