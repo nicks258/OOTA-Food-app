@@ -45,7 +45,7 @@ export class SearchPage {
 
    initial_search(){
     let loadingPopup = this.loadingCtrl.create({
-      content: 'Loading Restaurants...',
+      content: 'Loading frequest searches...',
       spinner: 'circles'
     });
     loadingPopup.present();

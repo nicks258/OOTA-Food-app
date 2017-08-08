@@ -30,8 +30,9 @@
 
         <div class="review" *ngIf="d.value == 1">
             <div *ngFor="let iteminfo of mealinfoarraydesc;">
-                Name : {{iteminfo.name}}
-                Description : {{iteminfo.description}}
+                <b>Name :</b> {{iteminfo.name}}
+                <br>
+                <b>Description :</b> {{iteminfo.description}}
                 <hr>
             </div>
            <!--  <div *ngFor="let iteminfo of info;let i = index">

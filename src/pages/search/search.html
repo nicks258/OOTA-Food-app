@@ -15,9 +15,14 @@
 <ion-content class="body-content">
 
 <ion-card *ngIf="flag != 1">
+ <ion-card-header>
+    <b>Search Results</b>
+  </ion-card-header>
   <ion-list>
+    <hr>
     <button ion-item *ngFor="let item of items" (click)='goto_item(item)'>
-      <div> <ion-icon name="search" style="padding-right:14px"></ion-icon> {{item.item.name}} </div>
+      <div style="color: grey"> <ion-icon name="search" style="padding-right:14px"></ion-icon> {{item.item.name}} </div>
+      <hr>
     </button>
      <hr style="color:black">
   
@@ -30,6 +35,7 @@
 <ion-card *ngIf="flag == 1">
   <ion-card-header>
     <b>Explore Nearby</b>
+    
   </ion-card-header>
 
   <ion-list>
@@ -38,8 +44,10 @@
       Food
     </button>
     <hr style="color:black"> -->
+    <hr>
     <button ion-item *ngFor="let item of item;" (click)='goto_fetchsearch(item)'>
-      <div> {{item}} </div>
+      <div style="color: grey"> {{item}} </div>
+      <hr>
     </button>
 
   </ion-list>
