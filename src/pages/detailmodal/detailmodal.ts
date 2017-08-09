@@ -40,15 +40,16 @@ export class DetailmodalPage {
      // console.log(this.value);
      // console.log(this.info);
      this.len = this.info.length;
-     // console.log(this.len);
+     console.log(this.len);
 
     //console.log("here->" + JSON.stringify(this.reviewInfo));
-    if (this.info.length != undefined){
-     for(let i=0;i<this.len;i++)
-     {
-             this.mealinfoarraydesc.push(this.info[i].item);
-     }
-   }
+   //  if (this.info.length != undefined){
+   //   for(let i=0;i<this.len;i++)
+   //   {
+   //           this.mealinfoarraydesc.push(this.info[i].item);
+   //   }
+   //   console.log(this.mealinfoarraydesc);
+   // }
 
      console.log(this.len);
      this.data.push({
@@ -125,10 +126,10 @@ export class DetailmodalPage {
   direct(x,y){
     // this.url = "http://maps.google.com/maps?saddr="+this.mylatitude+","+this.mylongitude+"&daddr="+x+","+y;
     // this.url = "https://www.google.com/maps/preview/@"+x+"," +y+",8z";
-    this.url = "http://maps.google.com/maps/?q="+x+"," + y;
+    //this.url = "http://maps.google.com/maps/?q="+x+"," + y;
 
-    // this.url = "http://maps.google.com/maps/?q="+x+"," + y;
-    console.log(x,y);
+    this.url = "http://maps.google.com/maps/?q="+x+"," + y;
+    console.log(x+","+y);
     window.location.href = this.url;
   }
 }

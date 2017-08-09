@@ -36,24 +36,24 @@
        </ion-card-header>
        <ion-card-content>
            <ion-row class="row-line">
-              <ion-col col-4 class="sidebor">
+              <ion-col col-4 class="sidebor" click="addfav()">
                  <img src="assets/icon/Favorites_icon.svg" class="icon_width">
-                 <p class="detail_opt">Add to Favourites</p>
+                 <p class="detail_opt">Favourite</p>
               </ion-col>
               <ion-col col-4 class="sidebor">
                  <img src="assets/icon/add-to-cart.svg" class="icon_width">
-                 <p class="detail_opt">Add to Cart</p>
+                 <p class="detail_opt">Cart</p>
               </ion-col>
-             <ion-col col-4 (click)="presentActionSheet()">
+             <ion-col col-4 (click)="presentActionSheet(name)">
                  <img src="assets/icon/Share_icon.svg" class="icon_width">
-                 <p class="detail_opt">share</p>
+                 <p class="detail_opt">Share</p>
               </ion-col>
            </ion-row>
            <hr>
            <img src="assets/icon/map-icon.svg" class="direction dirct0"> <span>0.3 mi</span>
 
            <span class="enddiv">
-                  <p class="directionmap" (click)="direct()">Direction <ion-icon name="compass"></ion-icon>
+                  <p class="directionmap" (click)="direct(lat,long)">Direction <ion-icon name="compass"></ion-icon>
                 </p>
             </span>
            <hr>

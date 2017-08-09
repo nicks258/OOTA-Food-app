@@ -118,7 +118,7 @@ export class PreferencePage {
       this.current_option = opt;
       this.current_inneropt = "items."+opt;
       this.option_val = 1;
-      this.email = "suvojitraj.kar@facebook.com";
+      this.email = "suvojitraj1.kar@facebook.com";
       this.getcurrentpreference(this.email);
 
   }
@@ -186,7 +186,11 @@ export class PreferencePage {
        .subscribe(
        data => {
           setTimeout(() => {
+            console.log(data);
+
             this.savedpreferences = data.data;
+            
+
             //budget
             if (this.savedpreferences.budget.breakfast.length > 0){
                   this.selectedItems.push("items.budget.breakfast-"+this.savedpreferences.budget.breakfast[0]);
@@ -265,17 +269,48 @@ export class PreferencePage {
                
                 }
              }
+
+
+
+
+
            loadingPopup.dismiss();
          }, 1000);
 
             console.log(this.selectedItems);
             console.log(JSON.stringify(this.savedpreferences));
 },
-err => console.error(err)
+err => {
+  loadingPopup.dismiss(); 
+  this.errorpref();
+ }
 );
  }
 
-
+  errorpref(){
+    this.savedpreferences =    {
+  "budget": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "distance": [],
+  "calorie": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "calorie_bld": 0,
+  "meal_time": {
+    "breakfast": [],
+    "lunch": [],
+    "dinner": []
+  },
+  "cuisine": [],
+  "food_type": [],
+  "fast_food": []
+};
+  }
   check_saved(a,b){
      let option = a+b;
          let j, flag;
@@ -349,7 +384,7 @@ err => console.error(err)
        //this.presentAlert(JSON.stringify(this.applyjson));
        this.presentAlert("Your preferences are saved successfully!");
     let link = 'http://54.172.94.76:9000/api/v1/customers/preferences';
-    let data =  {"email":"suvojitraj.kar@facebook.com","preferences":JSON.stringify(this.applyjson)};
+    let data =  {"email":"suvojitraj1.kar@facebook.com","preferences":JSON.stringify(this.applyjson)};
     console.log("data to send" + JSON.stringify(data));
     this.http.post(link, data)
       .subscribe(data => {

@@ -306,7 +306,7 @@
 
 
 
-      <ion-list no-lines *ngIf="option_val == 8">
+      <ion-list *ngIf="option_val == 8">
         <ion-item *ngFor="let fast_food of items.fast_food;">
           <ion-label>{{fast_food}}</ion-label>
           <ion-checkbox attr.id="items.fast_food-{{fast_food}}" (ionChange)="clickedItem('items.fast_food-'+fast_food,$event)" [checked]="check_saved('items.fast_food-',fast_food)"></ion-checkbox>

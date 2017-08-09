@@ -34,6 +34,7 @@ export class DetailviewPage {
         menuDetailsToSendLength : any;
         nextlength :  any;
         info : any;
+        url :any;
   data: Array<{title: string, details: string, icon: string, bgcolor: string, showDetails: boolean, value: number}> = [];
   constructor(public navCtrl: NavController, public platform: Platform, public actionSheetCtrl: ActionSheetController, public navParams: NavParams, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public geolocation: Geolocation,public http: Http) {
       this.sdata = navParams.get('data_search');
@@ -42,8 +43,8 @@ export class DetailviewPage {
       this.name = this.sdata.item.name;
       this.rname = this.sdata.restaurant.name;
       this.cost = this.sdata.item.cost;
-      this.lat = this.sdata.lat_long[0];
-      this.long = this.sdata.lat_long[1];
+      this.lat = this.sdata.lat_long[1];
+      this.long = this.sdata.lat_long[0];
       this.mylatitude = navParams.get('latitude');
       this.mylongitude = navParams.get('longitude');
       console.log("Lat->" + this.lat + " " + this.long);
@@ -83,14 +84,14 @@ export class DetailviewPage {
   goto_detailmodal(value){
       if (value == 3)
       {
-         this.restaurantandinfo(value);
+         this.restaurantandinfo(value, "Restaurant & Menu");
       }
       else if (value == 1){
-         this.mealdetail(value);
+         this.mealdetail(value, "Meal Details");
       }
       else if (value ==2)
       {
-        this.getReview(value);
+        this.getReview(value, "Reviews");
       }
       else
       {
@@ -108,8 +109,10 @@ export class DetailviewPage {
     console.log('ionViewDidLoad DetailviewPage');
   }
 
+addfav(){
+}
 
-presentActionSheet() {
+presentActionSheet(message) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Share',
       cssClass: 'action-sheets-basic-page',
@@ -118,7 +121,8 @@ presentActionSheet() {
           text: 'Whatsapp',
           icon: !this.platform.is('ios') ? 'logo-whatsapp' : null,
           handler: () => {
-            window.location.href="whatsapp://send?text=The text to share!";
+            console.log(message);
+            window.location.href="whatsapp://send?text=Restaurant : " + message;
             console.log('Whatsapp clicked');
           }
         },
@@ -126,7 +130,7 @@ presentActionSheet() {
           text: 'Facebook',
           icon: !this.platform.is('ios') ? 'logo-facebook' : null,
           handler: () => {
-            window.location.href="fb-messenger://share/?link= https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fsharing%2Freference%2Fsend-dialog&app_id=123456789";
+            window.location.href="fb-messenger://share/?link=Restaurant : " + message;
             console.log('Facebook clicked');
           }
         }
@@ -134,19 +138,19 @@ presentActionSheet() {
     });
     actionSheet.present();
   }
-  direct(){
+  
+    direct(x,y){
     // this.url = "http://maps.google.com/maps?saddr="+this.mylatitude+","+this.mylongitude+"&daddr="+x+","+y;
     // this.url = "https://www.google.com/maps/preview/@"+x+"," +y+",8z";
-    this.dirurl = "http://maps.google.com/maps/?q="+this.lat+"," + this.long;
-
-    // this.url = "http://maps.google.com/maps/?q="+x+"," + y;
-    console.log(this.lat+","+this.long);
-    window.location.href = this.dirurl;
+    this.url = "http://maps.google.com/maps/?q="+x+"," + y;
+    console.log(x+","+y);
+    window.location.href = this.url;
   }
 
-restaurantandinfo(value){
+
+restaurantandinfo(value, category){
    let loadingPopup = this.loadingCtrl.create({
-      content: 'Loading Restaurants...',
+      content: 'Loading '+category+'...',
       spinner: 'circles'
     });
     loadingPopup.present();
@@ -175,9 +179,9 @@ restaurantandinfo(value){
         err => console.error(err)
       );
 }
-  getReview(value){
+  getReview(value, category){
     let loadingPopup = this.loadingCtrl.create({
-      content: 'Loading Restaurants...',
+      content: 'Loading '+category+'...',
       spinner: 'circles'
     });
     loadingPopup.present();
@@ -205,21 +209,24 @@ restaurantandinfo(value){
       );
   }
 
-mealdetail(value){
+mealdetail(value, category){
    let loadingPopup = this.loadingCtrl.create({
-      content: 'Loading Restaurants...',
+      content: 'Loading '+category+'...',
       spinner: 'circles'
     });
     loadingPopup.present();
        let id = this.sdata.item.restaurant_id;
+       console.log(this.sdata);
        console.log(id);
+
+
        this.http.get('http://54.172.94.76:9000/api/v1/restaurants/'+id)
       .map(res => res.json())
       .subscribe(
         data => {
           // console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
-          setTimeout(() => {
-            this.info = data.data;
+     
+            this.info = this.sdata;
             this.restaurantInfo = data.data.restaurant;
             this.menu =  data.data.menu;
             this.nextlength = data.data.restaurant.length;
@@ -227,13 +234,18 @@ mealdetail(value){
             this.navCtrl.push(DetailmodalPage, {
             value: value,
             details : this.sdata,
-            current_detail : this.menu
+            current_detail : this.sdata.item
             });
 
             loadingPopup.dismiss();
-          }, 1000);
+
         },
         err => console.error(err)
       );
+
+
+
+
+
       }
 }

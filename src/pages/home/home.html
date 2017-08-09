@@ -34,7 +34,8 @@
                 <p class="fontsz">
                   <ion-row>
                     <ion-col col-6 class="amt">
-                       $ 9.00
+                       <div *ngIf="dashboard.choices[0]">$ {{dashboard.choices[0].min_price}}</div>
+                       <div *ngIf="!dashboard.choices[0]">NA</div>
                       </ion-col>
                           <ion-col col-6class="amt1">
                           </ion-col>
@@ -57,7 +58,7 @@
           <!--  <img src="assets/icon/direction-drive.svg" class="direction dirct1"> 4 min
            <img src="assets/icon/direction-drive.svg" class="direction dirct2"> 8 min -->
            <span class="enddiv">
-                <p class="directionmap" (click)="direct(dashboard.restaurant.latitude,dashboard.restaurant.longitude)">Direction <ion-icon name="compass"></ion-icon>
+                <p class="directionmap" (click)="direct(dashboard.lat_long[1],dashboard.lat_long[0])">Direction <ion-icon name="compass"></ion-icon>
                 </p>
           </span>
            <hr>

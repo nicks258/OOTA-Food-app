@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { SearchPage } from '../search/search';
 import { DetailviewPage } from '../detailview/detailview';
 import { CartPage } from '../cart/cart';
+import { PreferencePage} from '../preference/preference'
 import { LoadingController } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Http } from '@angular/http';
@@ -24,11 +25,15 @@ export class HomePage {
   url : any;
   mylatitude : any;
   mylongitude : any;
+  env1 : any;
+  nav1 :any;
   loc : any;
   constructor(public navCtrl: NavController,public nativeStorage: NativeStorage, public loadingCtrl: LoadingController,public http: Http) {
     let env = this;
+    this.env1 = env;
+
     this.nativeStorage.getItem('user')
-      .then(function (data){
+      .then( (data)=>{
         env.user = {
           name: data.name,
           gender: data.gender,
@@ -36,22 +41,11 @@ export class HomePage {
           email: data.email
         };
         console.log(env.user);
-      
-     // this will give user pref. If error means user is very very 1st time installing app 
+        this.getPreferences();
+     // this will give user pref. If error means user is very very 1st time installing app
      //and is not registerd.... so register him
-      this.http.get('http://54.172.94.76:9000/api/v1/customers/preferences/suvojitraj.kar@facebook.com')
-      .map(res => res.json())
-      .subscribe(
-        data => {
-          console.log('userpref');
-          console.log(data);
-          if(data.status == "FAILED"){
-            //Register block here
-            //then nav.setRoot(pref, {}, {animate: true, direction: 'forward'});
-          }
-        },
-        err => console.error(err)
-      );
+     //    console.log("mail->" + env.user.email);
+
 
 
   //registration block
@@ -80,8 +74,10 @@ export class HomePage {
   direct(x,y){
     // this.url = "http://maps.google.com/maps?saddr="+this.mylatitude+","+this.mylongitude+"&daddr="+x+","+y;
     // this.url = "https://www.google.com/maps/preview/@"+x+"," +y+",8z";
+    //this.url = "http://maps.google.com/maps/?q="+x+"," + y;
+
     this.url = "http://maps.google.com/maps/?q="+x+"," + y;
-    console.log(this.mylatitude+","+this.mylongitude);
+    console.log(x+","+y);
     window.location.href = this.url;
   }
 
@@ -90,7 +86,7 @@ export class HomePage {
   }
 
   goto_cartpage(){
-     this.navCtrl.setRoot(CartPage, {}, {animate: true, direction: 'forward'});
+     this.navCtrl.setRoot(CartPage, {}, {animate:true,direction:'forward'});
   }
 
 
@@ -120,6 +116,7 @@ export class HomePage {
           console.log('ok : http://54.172.94.76:9000/api/v1/dashboard?email=surya@gmail.com&lat='+this.mylatitude+'&lng='+this.mylongitude+'&pn='+start+'&ps='+end);
           setTimeout(() => {
           this.dashboardlist = data.data;
+          console.log(this.dashboardlist);
           this.nextlength = data.data.length;
           loadingPopup.dismiss();
          }, 1000);
@@ -129,12 +126,39 @@ export class HomePage {
 
 
 
-
-  }
-
   // public http: Http;
   //
   //   // console.log("uiip"+env.user);
   //
   // }
+
+
+
+  }
+  registerUser(){
+    let link = 'http://54.172.94.76:9000/api/v1/customers';
+    console.log("lol"+this.env1.user.email + "hus" + this.env1.user.name);
+    this.http.post(link, {"firstName":this.env1.user.name,"email":this.env1.user.email})
+      .subscribe(data => {
+        console.log("lol"+this.env1.user.email);
+        this.navCtrl.setRoot(PreferencePage, {}, {animate:true,direction:'forward'});
+      }, error => {
+        console.log("Oooops!");
+      });
+  }
+  getPreferences(){
+    this.http.get('http://54.172.94.76:9000/api/v1/customers/preferences/' + this.user.email)
+      .map(res => res.json())
+      .subscribe(
+        data => {
+          console.log('userpref');
+          console.log(data);
+          if(data.status == "FAILED"){
+            //Register block here
+            this.registerUser();
+          }
+        },
+        err => console.error(err)
+      );
+  }
 }
